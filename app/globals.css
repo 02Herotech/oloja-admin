@@ -2,26 +2,220 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.auth-bg {
+  @apply bg-auth-bg;
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    background: #00000080;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.box-shadow-filter {
+  box-shadow: 1px 3px 10px 4px rgba(0, 0, 0, 0.08);
+}
+
+.body {
+	transition: 300ms transform ease-in-out;
+}
+
+.overlay {
+	@apply fixed flex justify-center items-center inset-0;
+	background: #0e0e0f77;
+	transition: 300ms opacity ease-in-out;
+	z-index: 9999;
+}
+
+@media screen and (max-width: 600px) {
+	.overlay {
+		@apply fixed flex justify-center items-end inset-0;
+	}
+}
+
+.ReactModal__Overlay .overlay {
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+	opacity: 1;
+	height: 100%;
+}
+
+.ReactModal__Overlay--before-close {
+	opacity: 0;
+}
+
+.ReactModal__Content {
+	transform: scale(0.5);
+	transition: all 300ms ease-in-out;
+	position: absolute;
+	inset: 40;
+}
+
+.ReactModal__Content--after-open {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.ReactModal__Content--before-close {
+	transform: scale(0.5);
+	opacity: 0;
+}
+
+@media screen and (max-width: 900px) {
+	.ReactModal__Content {
+		transform: translateY(50%);
+		opacity: 1;
+	}
+
+	.ReactModal__Content--after-open {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.ReactModal__Content--before-close {
+		transform: translateY(50%);
+		opacity: 1;
+	}
+}
+
+.Toastify__toast-container {
+  min-width: 388px !important;
+  z-index: 9999999999999 !important;
+}
+
+.Toastify__toast.Toastify__toast--success {
+  @apply border border-status-success-100 text-status-success-100 bg-status-success-10 font-normal text-base;
+  min-height: 56px;
+}
+
+.Toastify__toast.Toastify__toast--error {
+  @apply border border-status-error-100 text-status-error-100 bg-status-error-10 font-normal text-base;
+  min-height: 56px;
+}
+
+.Toastify__toast.Toastify__toast--info {
+  @apply border border-status-information-100 text-status-information-100 bg-status-information-10 font-normal text-base;
+  min-height: 56px;
+}
+
+.Toastify__toast.Toastify__toast--warning {
+  min-height: 56px;
+}
+
+.Toastify__progress-bar {
+  opacity: 0 !important;
+}
+
+#nprogress .bar {
+  background: #5645f5 !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.progressBar {
+  @apply bg-gray-100 border border-gray-200 rounded relative;
+  box-shadow: inset 0px 4px 8px rgba(91, 91, 91, 0.08);
+  height: 8px;
+  overflow: hidden;
+  .progress {
+    @apply bg-primary absolute;
+    @apply inset-0;
+  }
+  &.indeterminate {
+    @apply border-none shadow-none rounded-none;
+    height: 6px;
+    .progress {
+      animation: loading 0.5s infinite;
+      animation-direction: alternate;
+      animation-timing-function: ease-in-out;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    left: -70%;
+  }
+  100% {
+    left: 70%;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: Clash;
+    src: url("/fonts/ClashDisplayRegular.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: ClashMedium;
+    src: url("/fonts/ClashDisplayMedium.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: ClashSemiBold;
+    src: url("/fonts/ClashDisplaySemibold.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: ClashBold;
+    src: url("/fonts/ClashDisplayBold.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Satoshi;
+    src: url("/fonts/SatoshiRegular.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: SatoshiMedium;
+    src: url("/fonts/SatoshiMedium.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: Satoshi;
+    src: url("/fonts/SatoshiRegular.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: SatoshiBold;
+    src: url("/fonts/Satoshi-Bold.otf") format("otf");
+    font-display: swap;
+    font-style: normal;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  @apply font-satoshi text-dark;
 }
