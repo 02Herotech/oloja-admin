@@ -7,7 +7,7 @@ import { useSigninMutation } from "@/services/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
@@ -31,9 +31,9 @@ const Login = () => {
         formState: { isValid },
     } = methods;
 
-    const searchParams = useSearchParams();
-    
-    const from = searchParams.get("from");
+    // const searchParams = useSearchParams();
+
+    // const from = searchParams.get("from");
 
     const [_signin, { isLoading }] = useSigninMutation();
 
@@ -54,8 +54,9 @@ const Login = () => {
             });
 
             if (signInResult?.ok) {
-                if (from) router.push(decodeURIComponent(from));
-                else router.push(`/dashboard`);
+                // if (from) router.push(decodeURIComponent(from));
+
+                router.push(`/dashboard`);
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
