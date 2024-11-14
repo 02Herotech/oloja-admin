@@ -13,13 +13,11 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 type ChangePasswordModalProps = {
     showModal: boolean;
     setShowModal: (value: boolean) => void;
-    email: string | null;
 };
 
 const ChangePasswordModal = ({
     showModal,
     setShowModal,
-    email
 }: ChangePasswordModalProps) => {
     const [step, setStep] = useState<"start" | "change" | "success">("start");
     const [changePassword, { isLoading }] = useChangePasswordMutation();

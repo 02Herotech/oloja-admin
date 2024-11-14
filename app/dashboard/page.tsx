@@ -2,15 +2,11 @@
 
 import ChangePasswordModal from '@/components/auth/Change-Password'
 import { signOut, useSession } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 
 const DashboardPage = () => {
     const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
     const session = useSession()
-
-    const searchParams = useSearchParams();
-    const email = searchParams.get("email");
 
     const handleLogout = async () => {
         await signOut()
@@ -28,7 +24,6 @@ const DashboardPage = () => {
             <ChangePasswordModal
                 showModal={resetPasswordModalOpen}
                 setShowModal={setResetPasswordModalOpen}
-                email={email}
             />
         </section>
     )
