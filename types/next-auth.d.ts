@@ -13,7 +13,7 @@ declare module "next-auth" {
             id: number;
             firstName: string;
             lastName: string;
-            emailAddress: string;
+            email: string;
             enabled: boolean | null;
             roles: string[];
         };

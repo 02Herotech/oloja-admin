@@ -49,7 +49,7 @@ export default function Component({
             isOpen={show}
             shouldCloseOnOverlayClick={allowClose && shouldCloseOnOverlayClick}
             onRequestClose={onRequestClose}
-            className={cn("flex h-fit w-full relative font-sans", width)}
+            className={cn("flex h-fit w-full relative font-sans", `lg:${width}`)}
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
             ariaHideApp={false}
             closeTimeoutMS={200}
@@ -57,7 +57,7 @@ export default function Component({
             <motion.section
                 layout
                 transition={{ duration: 0.3 }}
-                className="w-full max-w-3xl mx-auto"
+                className="w-full max-w-2xl mx-auto"
             >
                 <section
                     className={cn(

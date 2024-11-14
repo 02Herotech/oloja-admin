@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials: any, req) {
                 const {
                     email,
-                    token,
+                    accessToken,
                     password,
                     id,
                     enabled,
@@ -29,11 +29,11 @@ export const authOptions: NextAuthOptions = {
                     roles,
                 } = credentials!;
 
-                if (token) {
+                if (accessToken) {
                     // Any object returned will be saved in `user` property of the JWT
                     return {
                         email,
-                        token,
+                        accessToken,
                         password,
                         id,
                         enabled,

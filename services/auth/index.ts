@@ -19,13 +19,15 @@ export const auth = createApi({
         baseUrl: process.env.NEXT_PUBLIC_APP_BASE_URL,
         prepareHeaders: async (headers) => {
             const session = await getSession();
-            const token = session?.user?.accessToken;
+            const token = (session as any)?.user.accessToken; // eslint-disable-line @typescript-eslint/no-explicit-any
 
             if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
-                headers.set("Content-Type", "application/json-patch+json");
-            }
-
+                headers.set("authorization", `Bearer ${token}`);
+			}
+            
+			headers.set("Content-Type", "application/json");
+			headers.set("Accept", "application/json");
+            
             return headers;
         },
     }),

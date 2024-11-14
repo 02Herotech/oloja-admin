@@ -44,7 +44,7 @@ const Login = () => {
 
             const signInResult = await signIn("credentials", {
                 redirect: false,
-                token: result?.data?.accessToken,
+                accessToken: result?.data?.accessToken,
                 email: result?.data.user.emailAddress,
                 id: result.data.user.id,
                 enabled: result?.data?.user?.enabled,
@@ -55,7 +55,6 @@ const Login = () => {
 
             if (signInResult?.ok) {
                 // if (from) router.push(decodeURIComponent(from));
-
                 router.push(`/dashboard`);
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

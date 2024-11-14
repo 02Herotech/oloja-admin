@@ -5,6 +5,7 @@ import Input from "@/components/global/Input";
 import Modal from "@/components/global/Modal";
 import Icons from "@/components/icons";
 import { useChangePasswordMutation } from "@/services/auth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -15,13 +16,20 @@ type ChangePasswordModalProps = {
     setShowModal: (value: boolean) => void;
 };
 
+type ChangePasswordRequest = {
+    password: string;
+    confirmPassword: string;
+};
+
 const ChangePasswordModal = ({
     showModal,
     setShowModal,
 }: ChangePasswordModalProps) => {
+    const session = useSession();
     const [step, setStep] = useState<"start" | "change" | "success">("start");
-    const [changePassword, { isLoading }] = useChangePasswordMutation();
+    const [changePassword, { isLoading, error }] = useChangePasswordMutation();
     const router = useRouter()
+    const email = session.data?.user.email
 
     const methods = useForm({
         defaultValues: {
@@ -35,10 +43,9 @@ const ChangePasswordModal = ({
         reset,
     } = methods;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onSubmit: SubmitHandler<any> = async (payload) => {
+    const onSubmit: SubmitHandler<ChangePasswordRequest> = async (payload) => {
         const body = {
-            email: "com",
+            email,
             newPassword: payload.password,
             confirmPassword: payload.confirmPassword
         }
@@ -46,6 +53,7 @@ const ChangePasswordModal = ({
         const result = await changePassword(body).unwrap();
 
         console.log("result", result)
+        console.log("error", error)
         setStep("success")
     };
 
@@ -82,7 +90,7 @@ const ChangePasswordModal = ({
                     setStep("change");
                 }, 1000);
             }}
-            allowClose={step === "change" || step === "start" ? false : true}
+            allowClose={false}
         >
             {step === "start" && (
                 <section className='flex flex-col h-full justify-center items-center space-y-4'>
