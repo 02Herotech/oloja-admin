@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 
 const DashboardPage = () => {
-    const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
+    const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(true)
     const session = useSession()
 
     const handleLogout = async () => {

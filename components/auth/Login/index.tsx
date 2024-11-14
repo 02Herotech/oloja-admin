@@ -32,7 +32,7 @@ const Login = () => {
     } = methods;
 
     const searchParams = useSearchParams();
-
+    
     const from = searchParams.get("from");
 
     const [_signin, { isLoading }] = useSigninMutation();
@@ -55,11 +55,12 @@ const Login = () => {
 
             if (signInResult?.ok) {
                 if (from) router.push(decodeURIComponent(from));
-                else router.push(`/dashboard?email=${payload.emailAddress}`);
+                else router.push(`/dashboard`);
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err?.data?.message);
+            console.log("err", err)
         }
     };
 

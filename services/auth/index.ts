@@ -21,9 +21,11 @@ export const auth = createApi({
             const session = await getSession();
             const token = session?.user?.accessToken;
 
-            headers.set("Authorization", `Bearer ${token}`);
-            headers.set("Content-Type", "application/json-patch+json");
-            
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+                headers.set("Content-Type", "application/json-patch+json");
+            }
+
             return headers;
         },
     }),
