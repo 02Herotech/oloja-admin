@@ -13,11 +13,13 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 type ChangePasswordModalProps = {
     showModal: boolean;
     setShowModal: (value: boolean) => void;
+    email: string | null;
 };
 
 const ChangePasswordModal = ({
     showModal,
     setShowModal,
+    email
 }: ChangePasswordModalProps) => {
     const [step, setStep] = useState<"start" | "change" | "success">("start");
     const [changePassword, { isLoading }] = useChangePasswordMutation();
@@ -38,15 +40,14 @@ const ChangePasswordModal = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onSubmit: SubmitHandler<any> = async (payload) => {
         const body = {
-            email: "string",
+            email: "com",
             newPassword: payload.password,
             confirmPassword: payload.confirmPassword
         }
 
         const result = await changePassword(body).unwrap();
 
-        console.log(result)
-        console.log(payload)
+        console.log("result", result)
         setStep("success")
     };
 

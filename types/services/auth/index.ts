@@ -23,7 +23,7 @@ export type SignInResponse = {
 };
 
 export type ChangePasswordRequest = {
-    email: string;
+    email: string | null;
     newPassword: string;
     confirmPassword: string;
 }

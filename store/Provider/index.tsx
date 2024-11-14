@@ -13,19 +13,17 @@ type ProviderProps = {
 
 const Provider = ({ children }: ProviderProps) => {
     return (
-        <>
-            <SessionProvider>
-                <ToastContainer />
-                <ProgressBar
-                    color='#381F8C'
-                    height='2px'
-                    options={{ showSpinner: false }}
-                    shallowRouting
-                />
-                <ProviderWrapper store={store}>{children}</ProviderWrapper>
-            </SessionProvider>
-        </>
-    );
-};
+        <SessionProvider>
+            <ToastContainer />
+            <ProgressBar
+                color='#381F8C'
+                height='2px'
+                options={{ showSpinner: false }}
+                shallowRouting
+            />
+            <ProviderWrapper store={store}>{children}</ProviderWrapper>
+        </SessionProvider>
+    )
+}
 
 export default Provider;

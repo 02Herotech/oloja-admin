@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { BeatLoader } from "react-spinners";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ButtonProps } from "@/types/global/ButtonTypes";
 
@@ -24,9 +24,6 @@ const Button: React.FC<ButtonProps> = ({
     type = "button",
     ...rest
 }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const router = useRouter();
-
     const pathname = usePathname();
 
     const buttonTheme = (theme: string) => {

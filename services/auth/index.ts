@@ -19,13 +19,11 @@ export const auth = createApi({
         baseUrl: process.env.NEXT_PUBLIC_APP_BASE_URL,
         prepareHeaders: async (headers) => {
             const session = await getSession();
-            //@ts-expect-error not 
-            const token = session?.user?.jwtToken;
+            const token = session?.user?.accessToken;
 
-            if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
-                headers.set("Content-Type", "application/json-patch+json");
-            }
+            headers.set("Authorization", `Bearer ${token}`);
+            headers.set("Content-Type", "application/json-patch+json");
+            
             return headers;
         },
     }),

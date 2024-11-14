@@ -16,6 +16,8 @@ export const authOptions: NextAuthOptions = {
             credentials: {
                 email: {},
                 password: {},
+                id: {},
+                token: {},
             },
             async authorize(credentials: any, req) {
                 const {
@@ -23,6 +25,10 @@ export const authOptions: NextAuthOptions = {
                     token,
                     password,
                     id,
+                    enabled,
+                    firstName,
+                    lastName,
+                    roles,
                 } = credentials!;
 
                 if (token) {
@@ -32,6 +38,10 @@ export const authOptions: NextAuthOptions = {
                         token,
                         password,
                         id,
+                        enabled,
+                        firstName,
+                        lastName,
+                        roles,
                     };
                 } else {
                     // If you return null then an error will be displayed advising the user to check their details.

@@ -2,6 +2,7 @@
 
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
+import Icons from "@/components/icons";
 import { useSigninMutation } from "@/services/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -44,21 +45,19 @@ const Login = () => {
             const signInResult = await signIn("credentials", {
                 redirect: false,
                 token: result?.data?.accessToken,
-                user: {
-                    id: result?.data?.user?.id,
-                    enabled: result?.data?.user?.enabled,
-                    firstName: result?.data?.user?.firstName,
-                    lastName: result?.data?.user?.lastName,
-                    emailAddress: result?.data?.user?.emailAddress,
-                    roles: result?.data?.user?.roles[0],
-                },
+                email: result?.data.user.emailAddress,
+                id: result.data.user.id,
+                enabled: result?.data?.user?.enabled,
+                firstName: result?.data?.user?.firstName,
+                lastName: result?.data?.user?.lastName,
+                roles: result?.data?.user?.roles[0],
             });
 
             if (signInResult?.ok) {
                 if (from) router.push(decodeURIComponent(from));
-                else router.push("/dashboard");
+                else router.push(`/dashboard?email=${payload.emailAddress}`);
             }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err?.data?.message);
         }
@@ -78,7 +77,7 @@ const Login = () => {
 
             <div className="absolute inset-0 bg-cover bg-center lg:hidden">
                 <Image
-                    src="/assets/images/auth/auth-bg.png"
+                    src="/assets/images/auth/auth-bg-mobile.png"
                     alt="Login visual"
                     layout="fill"
                     objectFit="cover"
@@ -87,15 +86,18 @@ const Login = () => {
                 />
             </div>
 
-            <div className="w-full lg:w-1/2 flex items-center justify-evenly relative">
-                <div className="w-full max-w-3xl space-y-8 p-5 max-lg:bg-white/70 relative z-10 m-2">
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center relative">
+                <div className="lg:hidden flex items-center justify-center mb-10">
+                    <Icons.Logo />
+                </div>
+                <div className="w-full max-w-xl space-y-8 p-5 bg-white lg:bg-transparent rounded-3xl relative z-10 m-2">
                     <div className="relative z-10 p-4">
-                        <h2 className="text-3xl text-gray-800 font-clashSemiBold text-start">Welcome to <span className="font-bold text-primary">Oló<span className="text-secondary">jà</span> Admin</span></h2>
+                        <h2 className="text-3xl text-gray-800 font-clashMedium text-start">Welcome to <span className="text-primary">Oló<span className="text-secondary">jà</span> Admin</span></h2>
                         <p className="mt-2 mb-6 font-clashMedium text-status-grey text-lg">Login to access your dashboard and features.</p>
                         <FormProvider {...methods}>
                             <form
                                 onSubmit={methods.handleSubmit(onSubmit)}
-                                className="space-y-6"
+                                className="space-y-6 w-full"
                             >
                                 <Input
                                     name="emailAddress"
@@ -125,14 +127,16 @@ const Login = () => {
                                         Forgot password?
                                     </Link>
                                 </div>
-                                <Button
-                                    disabled={!isValid}
-                                    type="submit"
-                                    className="w-[150px] rounded-full"
-                                    loading={isLoading}
-                                >
-                                    Log in
-                                </Button>
+                                <div className="w-full !mt-8">
+                                    <Button
+                                        disabled={!isValid}
+                                        type="submit"
+                                        className="w-full lg:w-[150px] rounded-full"
+                                        loading={isLoading}
+                                    >
+                                        Log in
+                                    </Button>
+                                </div>
                             </form>
                         </FormProvider>
                     </div>

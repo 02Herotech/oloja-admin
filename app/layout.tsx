@@ -4,7 +4,7 @@ import Provider from "@/store/Provider";
 
 export const metadata: Metadata = {
   title: "Oloja | Admin",
-  description: "",
+  description: "Admin portal for Oloja marketplace application",
 };
 
 export default function RootLayout({
