@@ -14,12 +14,12 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "credentials",
             credentials: {
-                email: {},
+                emailAddress: {},
                 password: {},
             },
             async authorize(credentials: any, req) {
                 const {
-                    email,
+                    emailAddress,
                     accessToken,
                     password,
                     id,
@@ -27,12 +27,13 @@ export const authOptions: NextAuthOptions = {
                     firstName,
                     lastName,
                     roles,
+                    firstLogin
                 } = credentials!;
 
                 if (accessToken) {
                     // Any object returned will be saved in `user` property of the JWT
                     return {
-                        email,
+                        emailAddress,
                         accessToken,
                         password,
                         id,
@@ -40,6 +41,7 @@ export const authOptions: NextAuthOptions = {
                         firstName,
                         lastName,
                         roles,
+                        firstLogin
                     };
                 } else {
                     // If you return null then an error will be displayed advising the user to check their details.

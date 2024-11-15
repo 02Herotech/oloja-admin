@@ -4,17 +4,13 @@ import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
 import Icons from "@/components/icons";
 import { useSigninMutation } from "@/services/auth";
+import { SignInRequest } from "@/types/services/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-
-type SignInRequest = {
-    emailAddress: string;
-    password: string;
-};
 
 const Login = () => {
     const [error, setError] = useState<string | null>(null);
@@ -44,15 +40,17 @@ const Login = () => {
 
             const signInResult = await signIn("credentials", {
                 redirect: false,
-                accessToken: result?.data?.accessToken,
-                email: result?.data.user.emailAddress,
-                id: result.data.user.id,
-                enabled: result?.data?.user?.enabled,
-                firstName: result?.data?.user?.firstName,
-                lastName: result?.data?.user?.lastName,
-                roles: result?.data?.user?.roles[0],
+                accessToken: result?.data.authResponse.accessToken,
+                emailAddress: result?.data.authResponse.user.emailAddress,
+                id: result.data.authResponse.user.id,
+                enabled: result?.data?.authResponse.user?.enabled,
+                firstName: result?.data?.authResponse.user?.firstName,
+                lastName: result?.data?.authResponse.user?.lastName,
+                roles: result?.data?.authResponse.user?.roles[0],
+                firstLogin: result.data.firstLogin
             });
 
+            console.log("sin", signInResult)
             if (signInResult?.ok) {
                 // if (from) router.push(decodeURIComponent(from));
                 router.push(`/dashboard`);
@@ -107,16 +105,16 @@ const Login = () => {
                                     placeholder="Enter your email"
                                     rules={["email", "required"]}
                                     required
-                                    className="w-full"
+                                    className="w-full placeholder:text-sm"
                                 />
                                 <Input
                                     name="password"
                                     label="password"
-                                    type="password"
+                                    type="password" 
                                     placeholder="Enter your password"
                                     rules={["required"]}
                                     required
-                                    className="w-full"
+                                    className="w-full placeholder:text-sm"
                                 />
                                 {error && (
                                     <div className="my-1 text-base font-semibold text-status-error-100">

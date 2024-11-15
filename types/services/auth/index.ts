@@ -5,19 +5,22 @@ export type SignInRequest = {
 
 export type SignInResponse = {
     data: {
-        user: {
-            id: number;
-            enabled: boolean;
-            emailAddress: string;
-            roles: string[];
-            accountState: string;
-            firstName: string;
-            lastName: string;
+        authResponse: {
+            user: {
+                id: number;
+                enabled: boolean;
+                emailAddress: string;
+                roles: string[];
+                accountState: string;
+                firstName: string;
+                lastName: string;
+            };
+            accessToken: string;
+            refreshToken: string;
+            message: string;
         };
-        accessToken: string;
-        refreshToken: string;
-        message: string;
-    };
+        firstLogin: boolean;
+    }
     message: string;
     successful: boolean;
 };

@@ -5,8 +5,7 @@ import Input from "@/components/global/Input";
 import Modal from "@/components/global/Modal";
 import Icons from "@/components/icons";
 import { useChangePasswordMutation } from "@/services/auth";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -28,8 +27,7 @@ const ChangePasswordModal = ({
     const session = useSession();
     const [step, setStep] = useState<"start" | "change" | "success">("start");
     const [changePassword, { isLoading, error }] = useChangePasswordMutation();
-    const router = useRouter()
-    const email = session.data?.user.email
+    const email = session.data?.user.emailAddress
 
     const methods = useForm({
         defaultValues: {
@@ -56,6 +54,10 @@ const ChangePasswordModal = ({
         console.log("error", error)
         setStep("success")
     };
+
+    const handleLogout = async () => {
+        await signOut()
+    }
 
     const stepProps = {
         start: {
@@ -161,7 +163,7 @@ const ChangePasswordModal = ({
                             type='submit'
                             disabled={!isValid}
                             className='w-full lg:w-[240px] rounded-full font-satoshiBold'
-                            onClick={() => router.push("/auth/login")}
+                            onClick={handleLogout}
                         >
                             Proceed to Login
                         </Button>

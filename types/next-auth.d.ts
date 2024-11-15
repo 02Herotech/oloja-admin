@@ -13,9 +13,10 @@ declare module "next-auth" {
             id: number;
             firstName: string;
             lastName: string;
-            email: string;
+            emailAddress: string;
             enabled: boolean | null;
             roles: string[];
+            firstLogin: boolean | string;
         };
     }
 }

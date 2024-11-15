@@ -2,11 +2,17 @@
 
 import ChangePasswordModal from '@/components/auth/Change-Password'
 import { signOut, useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 const DashboardPage = () => {
-    const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(true)
-    const session = useSession()
+    const { data: session, status } = useSession()
+    const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
+
+    useLayoutEffect(() => {
+        if (status === 'authenticated' && session?.user?.firstLogin === "true") {
+            setResetPasswordModalOpen(true)
+        }
+    }, [session, status]);
 
     const handleLogout = async () => {
         await signOut()
@@ -19,8 +25,8 @@ const DashboardPage = () => {
                 <button className='bg-primary text-white px-3 py-1 rounded-full' onClick={handleLogout}>Logout</button>
                 <button className='bg-primary text-white px-3 py-1 rounded-full' onClick={() => setResetPasswordModalOpen(true)}>Change Password</button>
             </div>
-            <h4>First Name: {session.data?.user.firstName}</h4>
-            <h4>Last Name: {session.data?.user.lastName}</h4>
+            <h4>First Name: {session?.user.firstName}</h4>
+            <h4>Last Name: {session?.user.lastName}</h4>
             <ChangePasswordModal
                 showModal={resetPasswordModalOpen}
                 setShowModal={setResetPasswordModalOpen}
