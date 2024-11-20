@@ -23,10 +23,7 @@ const DashboardPage = () => {
             <div className='flex items-start justify-between'>
                 <h3>Dashboard</h3>
                 <button className='bg-primary text-white px-3 py-1 rounded-full' onClick={handleLogout}>Logout</button>
-                <button className='bg-primary text-white px-3 py-1 rounded-full' onClick={() => setResetPasswordModalOpen(true)}>Change Password</button>
             </div>
-            <h4>First Name: {session?.user.firstName}</h4>
-            <h4>Last Name: {session?.user.lastName}</h4>
             <ChangePasswordModal
                 showModal={resetPasswordModalOpen}
                 setShowModal={setResetPasswordModalOpen}
