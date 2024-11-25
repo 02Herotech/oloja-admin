@@ -57,16 +57,16 @@ const Header = () => {
                                 <PlusIcon color="#FFFFFF" className="size-6" />
                             </button>
                             <button className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
-                                <Icons.NotificationIcon />
+                                <Icons.MessageIcon />
                             </button>
                             <button className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
-                                <Icons.MessageIcon />
+                                <Icons.NotificationIcon />
                             </button>
                         </div>
 
                         <Dropdown
                             trigger={() => (
-                                <div className="flex cursor-pointer items-center gap-2 p-1 ">
+                                <div className="hidden lg:flex cursor-pointer items-center gap-2 p-1 ">
                                     <Image
                                         src="/assets/images/placeholder.jpeg"
                                         alt="Profile"
