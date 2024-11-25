@@ -11,8 +11,8 @@ export const SectionHeader = ({
 }: SectionHeaderProps) => {
 
     return (
-        <h2 className={cn("transition-all text-primary", {
-            "text-white": size,
+        <h2 className={cn("font-bold font-satoshiBold text-2xl lg:text-5xl text-tc-dark", {
+            "": size,
         })}
         >
             {children}

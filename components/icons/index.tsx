@@ -13,6 +13,7 @@ import UserIcon from "/public/assets/icons/user.svg";
 import PlusIcon from "/public/assets/icons/plus.svg";
 import SmallLogo from "/public/assets/icons/small-logo.svg";
 import CalendarIcon from "/public/assets/icons/datepicker.svg"
+import UsersFilterIcon from "/public/assets/icons/users-filter.svg"
 
 const Icons = {
     WelcomeIcon,
@@ -27,7 +28,8 @@ const Icons = {
     UserIcon,
     PlusIcon,
     SmallLogo, 
-    CalendarIcon
+    CalendarIcon,
+    UsersFilterIcon
 };
 
 export default Icons;
