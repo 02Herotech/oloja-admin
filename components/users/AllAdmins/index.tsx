@@ -2,21 +2,21 @@
 
 import React, { useState } from 'react'
 import UserCard from '../UserCard'
-import { useGetAllServiceProvidersQuery } from '@/services/users'
+import { useGetAllAdminsQuery } from '@/services/users'
 import Button from '@/components/global/Button'
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import type { User } from '@/types/services/users'
 import { formatDate } from '@/lib/utils'
 
-const AllServiceProviders = () => {
+const AllAdmins = () => {
     const [page, setPage] = useState(0)
     const {
-        data: serviceProvidersData,
+        data: adminsData,
         isLoading,
-    } = useGetAllServiceProvidersQuery(page)
+    } = useGetAllAdminsQuery(page)
 
     const handleNextPage = () => {
-        if (serviceProvidersData && page < serviceProvidersData.totalPages - 1) {
+        if (adminsData && page < adminsData.totalPages - 1) {
             setPage(prev => prev + 1)
         }
     }
@@ -36,7 +36,7 @@ const AllServiceProviders = () => {
     })
 
     // Show loading only if we don't have data yet
-    if (!serviceProvidersData || isLoading) {
+    if (!adminsData || isLoading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
                 <Loader2 className="animate-spin size-20 text-primary" />
@@ -48,11 +48,11 @@ const AllServiceProviders = () => {
         <div className="space-y-4">
             <div className="flex justify-between items-center">
                 <h2 className='text-primary font-satoshiMedium'>
-                    All Service Providers ({serviceProvidersData.totalElements})
+                    All Admins ({adminsData.totalElements})
                 </h2>
                 <div className="flex items-center gap-4">
                     <span className="text-primary">
-                        Page {page + 1} of {serviceProvidersData.totalPages}
+                        Page {page + 1} of {adminsData.totalPages}
                     </span>
                     <div className="flex gap-4">
                         <Button
@@ -65,7 +65,7 @@ const AllServiceProviders = () => {
                         </Button>
                         <Button
                             onClick={handleNextPage}
-                            disabled={page >= serviceProvidersData.totalPages - 1}
+                            disabled={page >= adminsData.totalPages - 1}
                             className="p-2 rounded-xl"
                             theme="outline"
                         >
@@ -76,16 +76,16 @@ const AllServiceProviders = () => {
             </div>
 
             <div className="space-y-4">
-                {serviceProvidersData.content.map((user) => (
+                {adminsData.content.map((user) => (
                     <UserCard
                         key={user.id}
                         {...mapUserToCardProps(user)}
                     />
                 ))}
 
-                {serviceProvidersData.content.length === 0 && (
+                {adminsData.content.length === 0 && (
                     <div className="text-center py-8 text-gray-500">
-                        No service provider found
+                        No Admin found
                     </div>
                 )}
             </div>
@@ -93,4 +93,4 @@ const AllServiceProviders = () => {
     )
 }
 
-export default AllServiceProviders
+export default AllAdmins

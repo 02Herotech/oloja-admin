@@ -47,9 +47,9 @@ const UserCard = ({ name, role, dateJoined, image, id }: UserCardProps) => {
                                     <span className="text-gray-600 font-medium">{name.charAt(0)}</span>
                                 </div>
                             )}
-                            <div className="space-y-1 lg:space-y-2 text-primary">
+                            <div className="space-y-1 lg:space-y-2 text-primary capitalize">
                                 <h3 className="lg:text-xl font-satoshiBold">{name}</h3>
-                                <p className="text-sm lg:text-base capitalize">{role}</p>
+                                <p className="text-sm lg:text-base">{role}</p>
                             </div>
                         </div>
                         <div className="flex flex-col items-center">

@@ -8,6 +8,7 @@ import Dropdown from '@/components/global/Dropdown'
 import AllUsers from '@/components/users/AllUsers'
 import AllCustomers from '@/components/users/AllCustomers'
 import AllServiceProviders from '@/components/users/AllServiceProviders'
+import AllAdmins from '@/components/users/AllAdmins'
 
 const Users = () => {
   const router = useRouter()
@@ -70,7 +71,7 @@ const Users = () => {
         {activeTab === 'all' && <AllUsers />}
         {activeTab === 'customers' && <AllCustomers />}
         {activeTab === 'providers' && <AllServiceProviders />}
-        {activeTab === 'admin' && <div>Admin Content</div>}
+        {activeTab === 'admin' && <AllAdmins />}
       </div>
     </div>
   )

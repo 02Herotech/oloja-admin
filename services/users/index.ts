@@ -44,11 +44,16 @@ export const users = createApi({
             query: (pageNumber) => getRequest(`/all-service-providers/${pageNumber}`),
             providesTags: ['Users'],
         }),
+        getAllAdmins: builder.query<FetchAllUsersResponse, number>({
+            query: (pageNumber) => getRequest(`/all-admins/${pageNumber}`),
+            providesTags: ['Users'],
+        }),
     }),
 });
 
 export const {
     useGetAllUsersMutation,
     useGetAllCustomersQuery,
-    useGetAllServiceProvidersQuery
+    useGetAllServiceProvidersQuery, 
+    useGetAllAdminsQuery
 } = users;
