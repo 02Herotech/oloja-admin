@@ -7,6 +7,7 @@ import Icons from '@/components/icons'
 import Dropdown from '@/components/global/Dropdown'
 import AllUsers from '@/components/users/AllUsers'
 import AllCustomers from '@/components/users/AllCustomers'
+import AllServiceProviders from '@/components/users/AllServiceProviders'
 
 const Users = () => {
   const router = useRouter()
@@ -68,7 +69,7 @@ const Users = () => {
       <div className="mt-6">
         {activeTab === 'all' && <AllUsers />}
         {activeTab === 'customers' && <AllCustomers />}
-        {activeTab === 'providers' && <div>Service Providers Content</div>}
+        {activeTab === 'providers' && <AllServiceProviders />}
         {activeTab === 'admin' && <div>Admin Content</div>}
       </div>
     </div>

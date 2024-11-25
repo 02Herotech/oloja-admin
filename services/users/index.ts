@@ -31,18 +31,18 @@ export const users = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Users', 'Customers'],
+    tagTypes: ['Users'],
     endpoints: (builder) => ({
         getAllUsers: builder.mutation<FetchAllUsersResponse, number>({
             query: (pageNumber) => postRequest(`/users/${pageNumber}`, {}),
         }),
         getAllCustomers: builder.query<FetchAllUsersResponse, number>({
             query: (pageNumber) => getRequest(`/all-customers/${pageNumber}`),
-            providesTags: ['Customers'],
-            // Add transformResponse if needed
-            transformResponse: (response: FetchAllUsersResponse) => {
-                return response;
-            },
+            providesTags: ['Users'],
+        }),
+        getAllServiceProviders: builder.query<FetchAllUsersResponse, number>({
+            query: (pageNumber) => getRequest(`/all-service-providers/${pageNumber}`),
+            providesTags: ['Users'],
         }),
     }),
 });
@@ -50,4 +50,5 @@ export const users = createApi({
 export const {
     useGetAllUsersMutation,
     useGetAllCustomersQuery,
+    useGetAllServiceProvidersQuery
 } = users;
