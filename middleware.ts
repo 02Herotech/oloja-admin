@@ -43,6 +43,12 @@ export const config = {
     matcher: [
         "/auth/:path*",
         "/dashboard/:path*",
+        "/bookings/:path*",
+        "/messages/:path*",
+        "/notifications/:path*",
+        "/payments/:path*",
+        "/settings/:path*",
+        "/users/:path*",
         "/",
     ],
 };
