@@ -8,6 +8,11 @@ const postRequest = (url: string, details: unknown) => ({
     body: details,
 });
 
+const getRequest = (url: string) => ({
+    url,
+    method: "GET",
+});
+
 export const users = createApi({
     reducerPath: "users",
     baseQuery: fetchBaseQuery({
@@ -26,13 +31,23 @@ export const users = createApi({
             return headers;
         },
     }),
+    tagTypes: ['Users', 'Customers'],
     endpoints: (builder) => ({
         getAllUsers: builder.mutation<FetchAllUsersResponse, number>({
             query: (pageNumber) => postRequest(`/users/${pageNumber}`, {}),
-        })
+        }),
+        getAllCustomers: builder.query<FetchAllUsersResponse, number>({
+            query: (pageNumber) => getRequest(`/all-customers/${pageNumber}`),
+            providesTags: ['Customers'],
+            // Add transformResponse if needed
+            transformResponse: (response: FetchAllUsersResponse) => {
+                return response;
+            },
+        }),
     }),
 });
 
 export const {
     useGetAllUsersMutation,
+    useGetAllCustomersQuery,
 } = users;

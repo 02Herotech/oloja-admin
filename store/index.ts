@@ -1,14 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { auth } from "../services/auth";
+import { auth } from "@/services/auth";
 import { rtkQueryErrorLogger } from "./middlewares";
+import {users} from "@/services/users";
 
 export const store = configureStore({
     reducer: {
         [auth.reducerPath]: auth.reducer,
+        [users.reducerPath]: users.reducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             auth.middleware,
+            users.middleware,
             rtkQueryErrorLogger
         ),
 });

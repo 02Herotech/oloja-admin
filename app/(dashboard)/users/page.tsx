@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Icons from '@/components/icons'
 import Dropdown from '@/components/global/Dropdown'
 import AllUsers from '@/components/users/AllUsers'
+import AllCustomers from '@/components/users/AllCustomers'
 
 const Users = () => {
   const router = useRouter()
@@ -66,7 +67,7 @@ const Users = () => {
 
       <div className="mt-6">
         {activeTab === 'all' && <AllUsers />}
-        {activeTab === 'customers' && <div>Customers Content</div>}
+        {activeTab === 'customers' && <AllCustomers />}
         {activeTab === 'providers' && <div>Service Providers Content</div>}
         {activeTab === 'admin' && <div>Admin Content</div>}
       </div>
