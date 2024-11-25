@@ -2,6 +2,9 @@
 
 import Icons from "@/components/icons";
 import NavigationLink from "../NavigationLink";
+import Dropdown from "@/components/global/Dropdown";
+import { cn } from "@/lib/utils";
+import { PlusIcon } from "lucide-react";
 
 const Navigation = () => {
     const links = [
@@ -70,10 +73,16 @@ const Navigation = () => {
         },
     ];
 
+    const dropdownButtons = [
+        {
+            label: "Create New User",
+            onClick: () => { },
+        },
+    ];
+
     return (
         <>
             <nav className='hidden lg:block w-[278px] min-h-[calc(100vh-70px)] py-2 mt-[70px] px-2 max-lg:pb-20 fixed bg-white border border-r'>
-                
                 <div className='flex flex-col h-[calc(100%-198px)] justify-between'>
                     <ul className='px-2.5 space-y-2 mt-8'>
                         {links.map((link) => {
@@ -81,14 +90,58 @@ const Navigation = () => {
                         })}
                     </ul>
                 </div>
-               
             </nav>
             <div className='relative'>
-                <nav className='lg:hidden bg-white border border-t w-screen fixed z-50 bottom-0 left-0 right-0'>
-                    <div className='flex items-center justify-between py-2 px-6'>
-                        {mobileLinks.map((link) => {
-                            return <NavigationLink key={link.name} link={link} />
-                        })}
+                <nav className='lg:hidden bg-white w-screen fixed z-50 bottom-0 left-0 right-0'>
+                    <div className='flex items-center justify-between py-2'>
+                        {/* First half of links */}
+                        <div className='flex-1 flex justify-center'>
+                            <ul className='flex items-center justify-evenly w-full'>
+                                {mobileLinks.slice(0, 2).map((link) => (
+                                    <NavigationLink key={link.name} link={link} />
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Spacer for center button */}
+                        <div className='w-16'></div>
+
+                        {/* Second half of links */}
+                        <div className='flex-1 flex justify-center'>
+                            <ul className='flex items-center justify-evenly w-full'>
+                                {mobileLinks.slice(2, 4).map((link) => (
+                                    <NavigationLink key={link.name} link={link} />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Center Plus Button with Dropdown */}
+                    <div className='absolute -top-8 left-1/2 transform -translate-x-1/2'>
+                        <Dropdown
+                            trigger={(open) => (
+                                <button className='flex justify-center items-center bg-primary border-2 border-primary size-16 rounded-full shadow-lg'>
+                                    <PlusIcon
+                                        color="#FFFFFF"
+                                        className={cn("transition-all size-8", {
+                                            "rotate-[135deg]": open,
+                                        })}
+                                    />
+                                </button>
+                            )}
+                            position='top'
+                            className='-left-[90px] bottom-20 rounded-md'>
+                            <div className='w-[180px] bg-white rounded-md'>
+                                {dropdownButtons.map((button, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={button.onClick}
+                                        className='flex text-[#2B2B29] w-full dropdown-item hover:bg-[#FFE2D2] transition-all text-xs items-center justify-between p-3 border-b last:border-b-0 border-[#CBCFD3]'>
+                                        {button.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </Dropdown>
                     </div>
                 </nav>
             </div>

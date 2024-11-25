@@ -33,6 +33,7 @@ const config: Config = {
 				},
 				tc: {
 					primary: "#190E3F",
+					dark: "#140B31"
 				}
 			},
 			borderRadius: {

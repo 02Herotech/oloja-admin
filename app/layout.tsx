@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="font-satoshi">
         <Provider>{children}</Provider>
       </body>
     </html>

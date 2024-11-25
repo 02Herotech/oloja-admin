@@ -12,6 +12,7 @@ import SettingsIcon from "/public/assets/icons/settings.svg";
 import UserIcon from "/public/assets/icons/user.svg";
 import PlusIcon from "/public/assets/icons/plus.svg";
 import SmallLogo from "/public/assets/icons/small-logo.svg";
+import CalendarIcon from "/public/assets/icons/datepicker.svg"
 
 const Icons = {
     WelcomeIcon,
@@ -25,7 +26,8 @@ const Icons = {
     SettingsIcon,
     UserIcon,
     PlusIcon,
-    SmallLogo
+    SmallLogo, 
+    CalendarIcon
 };
 
 export default Icons;
