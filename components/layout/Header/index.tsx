@@ -4,11 +4,14 @@ import Dropdown from "@/components/global/Dropdown";
 import Input from "@/components/global/Input";
 import Icons from "@/components/icons";
 import { ChevronDown, PlusIcon, Search } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 
 const Header = () => {
+    const router = useRouter();
     const methods = useForm({
         mode: "onChange",
         defaultValues: {
@@ -19,7 +22,7 @@ const Header = () => {
     const dropdownButtons = [
         {
             label: "Logout",
-            onClick: () => { },
+            onClick: () => signOut(), 
         },
     ];
 
@@ -52,14 +55,14 @@ const Header = () => {
 
 
                     <div className='flex items-center justify-end gap-8 lg:gap-12'>
-                        <div className="flex items-center gap-4 lg:gap-8">
+                        <div className="flex items-center gap-4 lg:gap-5">
                             <button className='hidden lg:flex justify-center items-center p-2.5 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors'>
                                 <PlusIcon color="#FFFFFF" className="size-6" />
                             </button>
-                            <button className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
+                            <button onClick={() => router.push("/messages")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
                                 <Icons.MessageIcon />
                             </button>
-                            <button className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
+                            <button onClick={() => router.push("/notifications")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
                                 <Icons.NotificationIcon />
                             </button>
                         </div>
