@@ -93,7 +93,7 @@ const Navigation = () => {
             </nav>
             <div className='relative'>
                 <nav className='lg:hidden bg-white w-screen fixed z-50 bottom-0 left-0 right-0 border border-t'>
-                    <div className='flex items-center justify-between py-2'>
+                    <div className='flex items-center justify-between py-1'>
                         {/* First half of links */}
                         <div className='flex-1 flex justify-center'>
                             <ul className='flex items-center justify-evenly w-full'>
@@ -104,7 +104,7 @@ const Navigation = () => {
                         </div>
 
                         {/* Spacer for center button */}
-                        <div className='w-16'></div>
+                        <div className='w-14'></div>
 
                         {/* Second half of links */}
                         <div className='flex-1 flex justify-center'>
@@ -117,7 +117,7 @@ const Navigation = () => {
                     </div>
 
                     {/* Center Plus Button with Dropdown */}
-                    <div className='absolute -top-4 left-1/2 transform -translate-x-1/2'>
+                    <div className='absolute -top-5 left-1/2 transform -translate-x-1/2'>
                         <Dropdown
                             trigger={(open) => (
                                 <button className='flex justify-center items-center bg-primary border-2 border-primary size-14 rounded-full shadow-lg'>
