@@ -91,7 +91,7 @@ const Users = () => {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between">
+      <div className="">
         <SectionHeader>User Management</SectionHeader>
         <Suspense>
           <TabButtons onTabChange={handleTabChange} />
