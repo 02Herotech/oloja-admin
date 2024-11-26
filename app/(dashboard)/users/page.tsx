@@ -45,7 +45,7 @@ const TabButtons = ({ onTabChange }: TabButtonsProps) => {
     <>
       <Dropdown
         trigger={() => (
-          <div className="flex items-center justify-center lg:hidden border rounded-full p-3">
+          <div className="flex items-center justify-center lg:hidden border rounded-full p-3 size-14">
             <Icons.UsersFilterIcon />
           </div>
         )}
@@ -91,7 +91,7 @@ const Users = () => {
 
   return (
     <div className="relative">
-      <div className="">
+      <div className="max-lg:flex w-full justify-between">
         <SectionHeader>User Management</SectionHeader>
         <Suspense>
           <TabButtons onTabChange={handleTabChange} />

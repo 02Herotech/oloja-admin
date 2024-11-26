@@ -55,14 +55,14 @@ const Header = () => {
 
 
                     <div className='flex items-center justify-end gap-8 lg:gap-12'>
-                        <div className="flex items-center gap-4 lg:gap-5">
+                        <div className="flex items-center gap-4">
                             <button className='hidden lg:flex justify-center items-center p-2.5 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors'>
                                 <PlusIcon color="#FFFFFF" className="size-6" />
                             </button>
-                            <button onClick={() => router.push("/messages")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
+                            <button onClick={() => router.push("/messages")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-2 rounded-full'>
                                 <Icons.MessageIcon />
                             </button>
-                            <button onClick={() => router.push("/notifications")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-3 rounded-full'>
+                            <button onClick={() => router.push("/notifications")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-2 rounded-full'>
                                 <Icons.NotificationIcon />
                             </button>
                         </div>
@@ -80,7 +80,7 @@ const Header = () => {
                                     <ChevronDown className="size-5" />
                                 </div>
                             )}
-                            className='-left-10 top-14'>
+                            className='-right-4 top-14'>
                             <div className='w-[240px] bg-white rounded-lg shadow-lg border border-gray-100'>
                                 {dropdownButtons.map((button, index) => (
                                     <button

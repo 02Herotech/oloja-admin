@@ -1,4 +1,4 @@
-import { FetchAllUsersResponse } from "@/types/services/users";
+import { FetchAllUsersResponse, User } from "@/types/services/users";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getSession } from "next-auth/react";
 
@@ -48,6 +48,9 @@ export const users = createApi({
             query: (pageNumber) => getRequest(`/all-admins/${pageNumber}`),
             providesTags: ['Users'],
         }),
+        getUserByID: builder.query<User, number>({
+            query: (userId) => getRequest(`/user/${userId}`),
+        }),
     }),
 });
 
@@ -55,5 +58,6 @@ export const {
     useGetAllUsersMutation,
     useGetAllCustomersQuery,
     useGetAllServiceProvidersQuery, 
-    useGetAllAdminsQuery
+    useGetAllAdminsQuery,
+    useGetUserByIDQuery,
 } = users;
