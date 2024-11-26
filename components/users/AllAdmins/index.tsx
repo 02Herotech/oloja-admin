@@ -29,7 +29,7 @@ const AllAdmins = () => {
 
     const mapUserToCardProps = (user: User) => ({
         name: `${user.firstName} ${user.lastName}`,
-        role: 'provider' as const,
+        role: 'admin' as const,
         dateJoined: formatDate(user.createdAt),
         image: user.profileImage,
         id: user.id
