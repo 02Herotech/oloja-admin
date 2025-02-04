@@ -33,10 +33,10 @@ export const auth = createApi({
     }),
     endpoints: (builder) => ({
         signin: builder.mutation<SignInResponse, SignInRequest>({
-            query: (credentials) => postRequest("/login", credentials),
+            query: (credentials) => postRequest("/admin/login", credentials),
         }),
         changePassword: builder.mutation<ChangePasswordResponse, ChangePasswordRequest>({
-            query: (credentials) => postRequest(`/change-password?email=${credentials.email}`, credentials),
+            query: (credentials) => postRequest(`/admin/change-password?email=${credentials.email}`, credentials),
         })
     }),
 });
