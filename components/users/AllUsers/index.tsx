@@ -18,6 +18,7 @@ const AllUsers = () => {
         try {
             setLoading(true)
             const response = await getAllUsers(pageNumber).unwrap()
+            console.log({response})
             setUsersData(response)
         } catch (error) {
             console.error('Failed to fetch users:', error)

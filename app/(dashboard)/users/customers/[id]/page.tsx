@@ -19,6 +19,7 @@ const CustomerDetailsPage = ({ params }: { params: { id: string } }) => {
     data: userData,
     isLoading,
   } = useGetUserByIDQuery(id as unknown as number);
+  console.log({userData})
 
   if (isLoading) {
     return (
