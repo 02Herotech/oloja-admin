@@ -38,4 +38,6 @@ export interface PaginatedResponse<T> {
     content: T[];
 }
 
+
+
 export type FetchAllUsersResponse = PaginatedResponse<User>;
