@@ -1,5 +1,7 @@
 import {
-    AnalyticsResponse,
+    CompletedAnalyticsResponse,
+    IncomeAnalyticsResponse,
+    TaskAnalyticsResponse,
     UserAnalyticsResponse
 } from "@/types/services/analysis";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -39,16 +41,16 @@ export const analysis = createApi({
         getUserAnalytics: builder.query<UserAnalyticsResponse[], void>({
             query: () => getRequest("/user-analytics"),
         }),
-        getTaskAnalysis: builder.query<AnalyticsResponse, void>({
+        getTaskAnalysis: builder.query<TaskAnalyticsResponse, void>({
             query: () => getRequest("/all-tasks-stats"),
         }),
-        getIncomeAnalysis: builder.query<AnalyticsResponse, void>({
+        getIncomeAnalysis: builder.query<IncomeAnalyticsResponse, void>({
             query: () => getRequest("/income"),
         }),
         getOngoingTaskAnalysis: builder.query<number, void>({
             query: () => getRequest("/ongoing-jobs-count"),
         }),
-        getCompletedTaskAnalysis: builder.query<AnalyticsResponse, void>({
+        getCompletedTaskAnalysis: builder.query<CompletedAnalyticsResponse, void>({
             query: () => getRequest("/completed-jobs-stats"),
         }),
     }),

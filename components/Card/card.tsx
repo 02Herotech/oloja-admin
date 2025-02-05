@@ -2,9 +2,9 @@ import React from "react";
 
 type CardProps = {
     title: string;
-    value: string;
+    value: number | string;
     percentage: number;
-    description?: string;
+    description?: number | string;
     icon: React.JSX.Element;
 };
 

@@ -4,9 +4,23 @@ export interface UserAnalyticsResponse {
     customersCount: number;
 }
 
-export interface AnalyticsResponse {
+export interface TaskAnalyticsResponse {
     percentageChange: number;
-    total: number;
-    today: number;
-    yesterday: number;
+    totalTasks: number;
+    tasksToday: number;
+    tasksYesterday: number;
+}
+
+export interface IncomeAnalyticsResponse {
+    percentageChange: number;
+    totalIncome: number;
+    todayIncome: number;
+    yesterdayIncome: number;
+}
+
+export interface CompletedAnalyticsResponse {
+    completedJobsToday: number;
+    percentageChange: number;
+    totalCompletedJobs: number;
+    completedJobsYesterday: number;
 }
