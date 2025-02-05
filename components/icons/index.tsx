@@ -12,8 +12,13 @@ import SettingsIcon from "/public/assets/icons/settings.svg";
 import UserIcon from "/public/assets/icons/user.svg";
 import PlusIcon from "/public/assets/icons/plus.svg";
 import SmallLogo from "/public/assets/icons/small-logo.svg";
-import CalendarIcon from "/public/assets/icons/datepicker.svg"
-import UsersFilterIcon from "/public/assets/icons/users-filter.svg"
+import CalendarIcon from "/public/assets/icons/datepicker.svg";
+import UsersFilterIcon from "/public/assets/icons/users-filter.svg";
+import CartIcon from "/public/assets/icons/cart.svg";
+import CompletedTaskIcon from "/public/assets/icons/completed-task.svg";
+import OngoingTask from "/public/assets/icons/ongoing-task.svg";
+import TotalIncome from "/public/assets/icons/total-income.svg";
+import ActivityIcon from "/public/assets/icons/activity-icon.svg";
 
 const Icons = {
     WelcomeIcon,
@@ -29,7 +34,12 @@ const Icons = {
     PlusIcon,
     SmallLogo, 
     CalendarIcon,
-    UsersFilterIcon
+    UsersFilterIcon,
+    CartIcon,
+    CompletedTaskIcon,
+    OngoingTask,
+    TotalIncome,
+    ActivityIcon
 };
 
 export default Icons;
