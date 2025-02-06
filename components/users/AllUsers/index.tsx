@@ -5,7 +5,7 @@ import UserCard from '../UserCard'
 import { useGetAllUsersMutation } from '@/services/users'
 import Button from '@/components/global/Button'
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
-import { FetchAllUsersResponse, User } from '@/types/services/users'
+import { FetchAllUsersResponse, User } from '@/types/services/users/customers'
 import { formatDate } from '@/lib/utils'
 
 const AllUsers = () => {
