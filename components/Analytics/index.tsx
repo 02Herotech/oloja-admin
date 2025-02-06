@@ -1,24 +1,55 @@
 'use client';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart, ChartOptions, registerables } from "chart.js";
+import { useGetUserAnalyticsQuery } from "@/services/adminAnalysis";
+import {Loader2} from "lucide-react";
 
 Chart.register(...registerables);
 
+interface AnalyticsEntry {
+    day: string;
+    serviceProvidersCount: number;
+    customersCount: number;
+}
+
+interface ChartData {
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        backgroundColor: string;
+    }[];
+}
+
 const UserAnalytics: React.FC = () => {
-    const data = {
-        labels: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
+    const { data, error, isLoading } = useGetUserAnalyticsQuery();
+
+    const [chartData, setChartData] = useState<ChartData>({
+        labels: [],
         datasets: [
-            { label: "Service Providers", data: [75, 50, 40, 100, 0, 0, 0], backgroundColor: "#524ED9" },
-            { label: "Customers", data: [50, 30, 35, 75, 0, 0, 0], backgroundColor: "#F59E0B" },
+            { label: "Service Providers", data: [], backgroundColor: "#381F8C" },
+            { label: "Customers", data: [], backgroundColor: "#FE9B07" },
         ],
-    };
+    });
+
+    useEffect(() => {
+        if (data && Array.isArray(data)) {
+            setChartData({
+                labels: data.map((entry: AnalyticsEntry) => entry.day.slice(0,3)),
+                datasets: [
+                    { label: "Service Providers", data: data.map((entry: AnalyticsEntry) => entry.serviceProvidersCount), backgroundColor: "#381F8C" },
+                    { label: "Customers", data: data.map((entry: AnalyticsEntry) => entry.customersCount), backgroundColor: "#FE9B07" },
+                ],
+            });
+        }
+    }, [data]);
 
     const chartOptions: ChartOptions<'bar'> = {
         plugins: {
             legend: {
                 display: true,
-                position: 'bottom' as const,
+                position: 'bottom',
             },
         },
         responsive: true,
@@ -34,10 +65,16 @@ const UserAnalytics: React.FC = () => {
                 </button>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl shadow-md w-full h-[300px]">
-                <div className="h-[250px]">
-                    <Bar data={data} options={chartOptions} />
-                </div>
+            <div className="bg-white p-4 rounded-2xl shadow-md w-full h-[300px] flex justify-center items-center">
+                {isLoading ? (
+                    <Loader2 className="animate-spin size-20 text-primary" />
+                ) : error ? (
+                    <p>Error loading data</p>
+                ) : (
+                    <div className="h-[250px] w-full">
+                        <Bar data={chartData} options={chartOptions} />
+                    </div>
+                )}
             </div>
         </div>
     );
