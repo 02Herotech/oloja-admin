@@ -18,7 +18,7 @@ const DashboardCards: React.FC = () => {
             <Card
                 title="All Tasks"
                 value={isTaskLoading ? '...' : taskData?.totalTasks ?? 0}
-                percentage={isTaskLoading ? 0 : taskData?.percentageChange ?? 0}
+                percentage={isTaskLoading ? 0 : parseFloat(taskData?.percentageChange.toFixed(2) ?? "0")}
                 description={isTaskLoading ? '' : `${taskData?.tasksToday ?? 0} Today · ${taskData?.tasksYesterday ?? 0} Yesterday`}
                 icon={<Icons.CartIcon />}
             />
@@ -32,14 +32,14 @@ const DashboardCards: React.FC = () => {
             <Card
                 title="Completed Tasks"
                 value={isCompletedLoading ? '...' : completedData?.totalCompletedJobs ?? 0}
-                percentage={isTaskLoading ? 0 : completedData?.percentageChange ?? 0}
+                percentage={isCompletedLoading ? 0 : parseFloat(completedData?.percentageChange.toFixed(2) ?? "0")}
                 description={isTaskLoading ? '' : `${completedData?.completedJobsToday ?? 0} Today · ${completedData?.completedJobsYesterday?? 0} Yesterday`}
                 icon={<Icons.CompletedTaskIcon />}
             />
             <Card
                 title="Total Income"
                 value={isIncomeLoading ? '...' : `$${incomeData?.totalIncome ?? 0}`}
-                percentage={isIncomeLoading ? 0 : incomeData?.percentageChange ?? 0}
+                percentage={ isIncomeLoading ? 0 : parseFloat(incomeData?.percentageChange.toFixed(2) ?? "0")}
                 description={isIncomeLoading ? '' : `$${incomeData?.todayIncome ?? 0} Today · $${incomeData?.yesterdayIncome ?? 0} Yesterday`}
                 icon={<Icons.TotalIncome />}
             />

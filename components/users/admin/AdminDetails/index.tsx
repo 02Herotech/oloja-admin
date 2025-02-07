@@ -1,10 +1,10 @@
 import React from 'react'
-import { Mail, Calendar, Phone } from 'lucide-react'
-import { User } from '@/types/services/users'
+import { Mail, Calendar } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
+import {AdminResponse} from "@/types/services/users/admin";
 
 interface AdminDetailsProps {
-    userData: User;
+    userData: AdminResponse;
 }
 
 export const AdminDetails = ({ userData }: AdminDetailsProps) => {
@@ -15,16 +15,16 @@ export const AdminDetails = ({ userData }: AdminDetailsProps) => {
                 <div className='space-y-8'>
                     <div className="flex items-center gap-4 text-gray-600 mb-2">
                         <Mail className="size-7" />
-                        {userData.emailAddress}
+                        {userData.user.emailAddress}
                     </div>
                     <div className="flex items-center gap-4 text-gray-600 mb-2">
                         <Calendar className="size-7" />
-                        {formatDate(userData.dateOfBirth)}
+                        {formatDate(userData.user.registeredAt)}
                     </div>
-                    <div className="flex items-center gap-4 text-gray-600">
-                        <Phone className="size-7" />
-                        {userData.phoneNumber || 'N/A'}
-                    </div>
+                    {/*<div className="flex items-center gap-4 text-gray-600">*/}
+                    {/*    <Phone className="size-7" />*/}
+                    {/*    {userData.phoneNumber || 'N/A'}*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>
