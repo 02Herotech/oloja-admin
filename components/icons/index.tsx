@@ -20,6 +20,7 @@ import OngoingTask from "/public/assets/icons/ongoing-task.svg";
 import TotalIncome from "/public/assets/icons/total-income.svg";
 import ActivityIcon from "/public/assets/icons/activity-icon.svg";
 
+
 const Icons = {
     WelcomeIcon,
     WelldoneIcon,
@@ -39,7 +40,7 @@ const Icons = {
     CompletedTaskIcon,
     OngoingTask,
     TotalIncome,
-    ActivityIcon
+    ActivityIcon,
 };
 
 export default Icons;

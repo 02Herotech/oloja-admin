@@ -58,7 +58,7 @@ export interface CustomerTask {
     taskDescription: string;
     taskImage: string;
     taskTime: string | [number, number, number];
-    taskDate: string | null;
+    taskDate: string | [number, number, number];
     termAccepted: boolean;
     taskType: TaskType;
     taskStatus: TaskStatus;

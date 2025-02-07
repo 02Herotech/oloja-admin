@@ -8,6 +8,8 @@ import { Loader2 } from 'lucide-react'
 import { SectionHeader } from '@/components/global/SectionHeader'
 import { AdminDetails } from '@/components/users/admin/AdminDetails'
 import AdminPermissions from '@/components/users/admin/AdminPermissions'
+import BackToPreviousTabButton
+    from "@/components/global/Button/previousTabButton";
 
 const permissionGroups = [
   {
@@ -83,7 +85,6 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handlePermissionChange = (groupName: string, permissionName: string, isChecked: boolean) => {
     console.log(groupName, permissionName, isChecked)
-    // Update your state here
   }
 
   const fullName = `${userData.user.firstName} ${userData.user.lastName}`
@@ -94,6 +95,7 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
         <SectionHeader>User Management</SectionHeader>
       </div>
       <div className="border border-blue-100 rounded-xl p-5 lg:p-8 w-full">
+          <BackToPreviousTabButton/>
         <div className="flex items-start justify-between mb-8">
           <div className="flex items-center gap-4">
             {userData.user.profileImage ? (
