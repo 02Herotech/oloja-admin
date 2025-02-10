@@ -32,7 +32,7 @@ export const ReferenceImageCarousel: React.FC<{ images: string | string[] | null
 
     return (
         <div className="relative w-full max-w-md mx-auto my-4">
-            <button onClick={prevImage} className="absolute left-0 p-2 bg-[#EBE9F4] shadow-md rounded-xl">
+            <button onClick={prevImage} className="absolute border border-primary left-0 p-2 bg-[#EBE9F4] shadow-md rounded-xl">
                 <ArrowLeft className="h-5 w-5 text-primary" />
             </button>
             <button onClick={nextImage} className="absolute right-0 p-2 bg-primary shadow-md rounded-xl">

@@ -11,7 +11,7 @@ export const TaskDescription: React.FC<{ task: CustomerTask }> = ({ task }) => {
     const fullAddress = [task.state, task.suburb].filter(Boolean).join(" ");
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-3xl lg:max-w-5xl">
+        <div className="bg-white p-6 rounded-xl w-full max-w-3xl lg:max-w-5xl">
             <div className="flex flex-col lg:flex-row justify-between">
                 <div className="lg:w-2/3">
                     <h2 className="text-xl lg:text-2xl text-primary font-semibold mb-2">

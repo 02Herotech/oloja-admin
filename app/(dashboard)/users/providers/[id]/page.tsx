@@ -123,7 +123,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
         {activeTab === 'personal' ? (
           <ProvidersPersonalDetails userData={userData} />
         ) : activeTab === 'services' ? (
-          <ServicesPosted />
+          <ServicesPosted userData={userData} />
         ) : (
           <ProviderReviews />
         )}
