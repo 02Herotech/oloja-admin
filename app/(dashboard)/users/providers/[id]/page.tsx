@@ -12,6 +12,8 @@ import { SectionHeader } from '@/components/global/SectionHeader'
 import { ProvidersPersonalDetails } from '@/components/users/providers/ProvidersPersonalDetails'
 import { ServicesPosted } from '@/components/users/providers/ProviderServices'
 import { ProviderReviews } from '@/components/users/providers/ProviderReviews'
+import BackToPreviousTabButton
+    from "@/components/global/Button/previousTabButton";
 
 type TabType = 'personal' | 'services' | 'reviews';
 
@@ -46,7 +48,8 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
         <SectionHeader>User Management</SectionHeader>
       </div>
       <div className="border border-blue-100 rounded-xl p-5 lg:p-8 w-full">
-        <div className="flex items-start justify-between mb-8">
+          <BackToPreviousTabButton/>
+          <div className="flex items-start justify-between mb-8">
           <div className="flex items-center gap-4">
             {userData.user.profileImage ? (
               <Image
@@ -120,7 +123,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
         {activeTab === 'personal' ? (
           <ProvidersPersonalDetails userData={userData} />
         ) : activeTab === 'services' ? (
-          <ServicesPosted />
+          <ServicesPosted userData={userData} />
         ) : (
           <ProviderReviews />
         )}

@@ -2,23 +2,30 @@
 
 import React, { useEffect, useState } from 'react'
 import UserCard from '../UserCard'
-import { useGetAllUsersMutation } from '@/services/users'
+import { useGetAllUsersMutation, useGetUsersByNameQuery } from '@/services/users'
 import Button from '@/components/global/Button'
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import { FetchAllUsersResponse, User } from '@/types/services/users/customers'
 import { formatDate } from '@/lib/utils'
+import { useSearchParams } from 'next/navigation'
 
 const AllUsers = () => {
     const [page, setPage] = useState(0)
     const [getAllUsers] = useGetAllUsersMutation()
     const [usersData, setUsersData] = useState<FetchAllUsersResponse | null>(null)
     const [loading, setLoading] = useState(true)
+    const searchParams = useSearchParams()
+    const searchQuery = searchParams.get('search') || ''
+
+    const { data: searchResults, isLoading: isSearchLoading } = useGetUsersByNameQuery(
+        { name: searchQuery, page },
+        { skip: !searchQuery }
+    )
 
     const fetchUsers = async (pageNumber: number) => {
         try {
             setLoading(true)
             const response = await getAllUsers(pageNumber).unwrap()
-            console.log({response})
             setUsersData(response)
         } catch (error) {
             console.error('Failed to fetch users:', error)
@@ -28,8 +35,13 @@ const AllUsers = () => {
     }
 
     useEffect(() => {
-        fetchUsers(page)
-    }, [page])
+        if (searchQuery) {
+            setLoading(false)
+            setUsersData(searchResults || null)
+        } else {
+            fetchUsers(page)
+        }
+    }, [searchQuery, page, searchResults])
 
     const handleNextPage = () => {
         if (usersData && page < usersData.totalPages - 1) {
@@ -43,7 +55,6 @@ const AllUsers = () => {
         }
     }
 
-    // Map API user data to UserCard props
     const mapUserToCardProps = (user: User) => ({
         name: `${user.firstName} ${user.lastName}`,
         role: user.roles.includes('SUPER_ADMIN') ? 'admin' as const :
@@ -53,7 +64,7 @@ const AllUsers = () => {
         id: user.id
     })
 
-    if (loading) {
+    if (loading || isSearchLoading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
                 <Loader2 className="animate-spin size-20 text-primary" />

@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import React from "react";
 
 const Header = () => {
     const router = useRouter();
@@ -19,12 +20,22 @@ const Header = () => {
         },
     });
 
+    const { watch } = methods;
+    const searchQuery = watch("search");
+
     const dropdownButtons = [
         {
             label: "Logout",
-            onClick: () => signOut(), 
+            onClick: () => signOut(),
         },
     ];
+
+    const handleSearch = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/users?search=${encodeURIComponent(searchQuery)}`);
+        }
+    };
 
     return (
         <>
@@ -38,21 +49,26 @@ const Header = () => {
 
                     <div className="hidden lg:flex flex-1 max-w-[650px]">
                         <FormProvider {...methods}>
-                            <form className='w-full relative'>
+                            <form className='w-full relative' onSubmit={handleSearch}>
                                 <div className="relative">
-                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 size-5" />
                                     <Input
                                         name='search'
                                         placeholder='Search'
-                                        paddingLeft='pl-11'
+                                        paddingRight='pr-11'
                                         type='search'
                                         className="w-full border border-gray-200 rounded-full bg-gray-50 focus:bg-white transition-colors py-2.5"
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleSearch()}
+                                        className="absolute right-11 bottom-1 -translate-y-1/2 hover:text-gray-600"
+                                    >
+                                        <Search className="size-5 text-[#D3D2D5]" />
+                                    </button>
                                 </div>
                             </form>
                         </FormProvider>
                     </div>
-
 
                     <div className='flex items-center justify-end gap-8 lg:gap-12'>
                         <div className="flex items-center gap-4">

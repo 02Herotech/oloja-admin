@@ -1,6 +1,5 @@
 import {
     FetchAllUsersResponse, GetCustomerByIdResponse,
-    User,
 } from "@/types/services/users/customers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getSession } from "next-auth/react";
@@ -68,6 +67,10 @@ export const users = createApi({
         getServiceProviderById: builder.query<GetServiceProviderByIdResponse, number>({
             query: (userId) => getRequest(`/service-provider/${userId}`),
         }),
+        getUsersByName: builder.query<FetchAllUsersResponse, { name: string; page?: number }>({
+            query: ({ name, page = 0 }) =>
+                getRequest(`/users/search/${page}?name=${name}`),
+        }),
     }),
 });
 
@@ -79,4 +82,5 @@ export const {
     useGetAdminByIDQuery,
     useGetCustomerByIdQuery,
     useGetServiceProviderByIdQuery,
+    useGetUsersByNameQuery,
 } = users;

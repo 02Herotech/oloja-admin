@@ -72,22 +72,6 @@ export interface ReviewDetail {
     };
 }
 
-// export interface ServiceProviderUser {
-//     id: number;
-//     address: Partial<UserAddress>;
-//     enabled: boolean;
-//     stripeId: string;
-//     emailAddress: string;
-//     roles: UserRole[];
-//     serviceProviderId: number;
-//     accountState: AccountState;
-//     phoneNumber: string;
-//     firstName: string;
-//     lastName: string;
-//     profileImage: string;
-//     registeredAt: string | [number, number, number];
-//     dateOfBirth: string | [number, number, number];
-// }
 
 export interface GetServiceProviderByIdResponse {
     user: Customer;

@@ -42,10 +42,6 @@ export const CustomerPersonalDetails = ({
                             <Calendar className="size-7"/>
                             {formatDate(userData.user.dateOfBirth)}
                         </div >
-                        {/*<div className="flex items-center gap-4 text-gray-600">*/}
-                        {/*  <Phone className="size-7" />*/}
-                        {/*  {userData.phoneNumber || "N/A"}*/}
-                        {/*</div>*/}
                     </div >
                     <div >
                         <h3 className="text-base lg:text-xl text-tc-dark font-satoshiBold font-semibold mb-2">
@@ -59,7 +55,6 @@ export const CustomerPersonalDetails = ({
                 </div >
             </div >
 
-            {/* Documents / Account Status */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <DocumentCard
                     title="ID Documents"
