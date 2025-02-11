@@ -1,6 +1,8 @@
 "use client"
 
-import { useGetUserByIDQuery } from '@/services/users'
+import {
+    useGetServiceProviderByIdQuery,
+} from '@/services/users'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Button from '@/components/global/Button'
@@ -10,6 +12,8 @@ import { SectionHeader } from '@/components/global/SectionHeader'
 import { ProvidersPersonalDetails } from '@/components/users/providers/ProvidersPersonalDetails'
 import { ServicesPosted } from '@/components/users/providers/ProviderServices'
 import { ProviderReviews } from '@/components/users/providers/ProviderReviews'
+import BackToPreviousTabButton
+    from "@/components/global/Button/previousTabButton";
 
 type TabType = 'personal' | 'services' | 'reviews';
 
@@ -19,7 +23,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
   const {
     data: userData,
     isLoading,
-  } = useGetUserByIDQuery(id as unknown as number);
+  } = useGetServiceProviderByIdQuery(id as unknown as number);
 
   if (isLoading) {
     return (
@@ -36,8 +40,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
       </div>
     )
   }
-
-  const fullName = `${userData.firstName} ${userData.lastName}`
+  const fullName = `${userData.user.firstName} ${userData.user.lastName}`
 
   return (
     <>
@@ -45,11 +48,12 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
         <SectionHeader>User Management</SectionHeader>
       </div>
       <div className="border border-blue-100 rounded-xl p-5 lg:p-8 w-full">
-        <div className="flex items-start justify-between mb-8">
+          <BackToPreviousTabButton/>
+          <div className="flex items-start justify-between mb-8">
           <div className="flex items-center gap-4">
-            {userData.profileImage ? (
+            {userData.user.profileImage ? (
               <Image
-                src={userData.profileImage}
+                src={userData.user.profileImage}
                 alt={fullName}
                 width={80}
                 height={80}
@@ -57,24 +61,24 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
               />
             ) : (
               <div className="size-32 rounded-full bg-gray-100 flex items-center justify-center">
-                <span className="text-4xl text-gray-600">{userData.firstName.charAt(0)}</span>
+                <span className="text-4xl text-gray-600">{userData.user.firstName.charAt(0)}</span>
               </div>
             )}
             <div className='space-y-1'>
               <h1 className="text-xl lg:text-2xl font-satoshiBold text-primary">{fullName}</h1>
               <p className="text-primary font-satoshi text-sm lg:text-lg">
-                {userData.roles[0].split('_').map(word =>
+                {userData.user.roles[0].split('_').map(word =>
                   word.charAt(0) + word.slice(1).toLowerCase()
                 ).join(' ')}
               </p>
-              <p className="text-sm text-gray-500">Joined {formatDate(userData.createdAt)}</p>
+              <p className="text-sm text-gray-500">Joined {formatDate(userData.user.registeredAt)}</p>
             </div>
           </div>
           <div className="hidden lg:inline-block space-y-2">
             <Button className="w-full rounded-full bg-secondary" theme="secondary">
               Send a message
             </Button>
-            {userData.isEnabled && (
+            {userData.user.enabled && (
               <Button className="w-full rounded-full text-secondary border-secondary bg-[#FCF4E6]" theme="outline">
                 Deactivate account
               </Button>
@@ -119,7 +123,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
         {activeTab === 'personal' ? (
           <ProvidersPersonalDetails userData={userData} />
         ) : activeTab === 'services' ? (
-          <ServicesPosted />
+          <ServicesPosted userData={userData} />
         ) : (
           <ProviderReviews />
         )}

@@ -1,14 +1,15 @@
 "use client"
 
-import { useGetUserByIDQuery } from '@/services/users'
+import {useGetAdminByIDQuery} from '@/services/users'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Button from '@/components/global/Button'
 import { Loader2 } from 'lucide-react'
-import { formatDate } from '@/lib/utils'
 import { SectionHeader } from '@/components/global/SectionHeader'
 import { AdminDetails } from '@/components/users/admin/AdminDetails'
 import AdminPermissions from '@/components/users/admin/AdminPermissions'
+import BackToPreviousTabButton
+    from "@/components/global/Button/previousTabButton";
 
 const permissionGroups = [
   {
@@ -62,7 +63,9 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
   const {
     data: userData,
     isLoading,
-  } = useGetUserByIDQuery(id as unknown as number);
+  } = useGetAdminByIDQuery(id as unknown as number);
+
+
 
   if (isLoading) {
     return (
@@ -71,7 +74,7 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
       </div>
     )
   }
-
+    console.log("userdata",userData);
   if (!userData) {
     return (
       <div className="text-center py-8">
@@ -82,10 +85,9 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handlePermissionChange = (groupName: string, permissionName: string, isChecked: boolean) => {
     console.log(groupName, permissionName, isChecked)
-    // Update your state here
   }
 
-  const fullName = `${userData.firstName} ${userData.lastName}`
+  const fullName = `${userData.user.firstName} ${userData.user.lastName}`
 
   return (
     <>
@@ -93,11 +95,12 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
         <SectionHeader>User Management</SectionHeader>
       </div>
       <div className="border border-blue-100 rounded-xl p-5 lg:p-8 w-full">
+          <BackToPreviousTabButton/>
         <div className="flex items-start justify-between mb-8">
           <div className="flex items-center gap-4">
-            {userData.profileImage ? (
+            {userData.user.profileImage ? (
               <Image
-                src={userData.profileImage}
+                src={userData.user.profileImage}
                 alt={fullName}
                 width={80}
                 height={80}
@@ -105,17 +108,17 @@ const AdminDetailsPage = ({ params }: { params: { id: string } }) => {
               />
             ) : (
               <div className="size-32 rounded-full bg-gray-100 flex items-center justify-center">
-                <span className="text-4xl text-gray-600">{userData.firstName.charAt(0)}</span>
+                <span className="text-4xl text-gray-600">{'userData.firstName.user'.charAt(0)}</span>
               </div>
             )}
             <div className='space-y-1'>
               <h1 className="text-xl lg:text-2xl font-satoshiBold text-primary">{fullName}</h1>
               <p className="text-primary font-satoshi text-sm lg:text-lg">
-                {userData.roles[0].split('_').map(word =>
+                {userData.user.roles[0].split('_').map(word =>
                   word.charAt(0) + word.slice(1).toLowerCase()
                 ).join(' ')}
               </p>
-              <p className="text-sm text-gray-500">Joined {formatDate(userData.createdAt)}</p>
+              {/*<p className="text-sm text-gray-500">Joined {formatDate(userData.usercreatedAt)}</p>*/}
             </div>
           </div>
           <div className="hidden lg:inline-block space-y-2">

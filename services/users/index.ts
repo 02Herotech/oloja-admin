@@ -1,6 +1,12 @@
-import { FetchAllUsersResponse, User } from "@/types/services/users";
+import {
+    FetchAllUsersResponse, GetCustomerByIdResponse,
+} from "@/types/services/users/customers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getSession } from "next-auth/react";
+import {
+    GetServiceProviderByIdResponse
+} from "@/types/services/users/service-providers";
+import {AdminResponse} from "@/types/services/users/admin";
 
 const postRequest = (url: string, details: unknown) => ({
     url,
@@ -48,8 +54,22 @@ export const users = createApi({
             query: (pageNumber) => getRequest(`/all-admins/${pageNumber}`),
             providesTags: ['Users'],
         }),
-        getUserByID: builder.query<User, number>({
-            query: (userId) => getRequest(`/user/${userId}`),
+        getAdminByID: builder.query<AdminResponse, number>({
+            query: (userId) => getRequest(`/admin/${userId}`),
+        }),
+        getCustomerById: builder.query<GetCustomerByIdResponse, number>({
+            query: (customerId) => getRequest(`/customer/${customerId}`),
+            transformErrorResponse: (response) => {
+                console.log({response})
+                return response;
+            }
+        }),
+        getServiceProviderById: builder.query<GetServiceProviderByIdResponse, number>({
+            query: (userId) => getRequest(`/service-provider/${userId}`),
+        }),
+        getUsersByName: builder.query<FetchAllUsersResponse, { name: string; page?: number }>({
+            query: ({ name, page = 0 }) =>
+                getRequest(`/users/search/${page}?name=${name}`),
         }),
     }),
 });
@@ -59,5 +79,8 @@ export const {
     useGetAllCustomersQuery,
     useGetAllServiceProvidersQuery, 
     useGetAllAdminsQuery,
-    useGetUserByIDQuery,
+    useGetAdminByIDQuery,
+    useGetCustomerByIdQuery,
+    useGetServiceProviderByIdQuery,
+    useGetUsersByNameQuery,
 } = users;

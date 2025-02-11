@@ -15,13 +15,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  })
-}
+export const formatDate = (dateInput: string | [number, number, number]) => {
+    if (Array.isArray(dateInput)) {
+        const [year, month, day] = dateInput;
+        dateInput = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    }
+    return new Date(dateInput).toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+    });
+};
 
 export function numberWithCommas(x: string | number) {
   return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
