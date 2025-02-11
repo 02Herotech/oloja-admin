@@ -24,3 +24,11 @@ export interface CompletedAnalyticsResponse {
     totalCompletedJobs: number;
     completedJobsYesterday: number;
 }
+
+export interface ActivityLog{
+    message: string,
+    id: number,
+    type: string,
+    subType: string,
+    notificationTime: [number, number, number, number, number, number, number]
+}
