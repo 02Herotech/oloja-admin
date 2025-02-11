@@ -1,4 +1,5 @@
 import {
+    ActivityLog,
     CompletedAnalyticsResponse,
     IncomeAnalyticsResponse,
     TaskAnalyticsResponse,
@@ -53,6 +54,9 @@ export const analysis = createApi({
         getCompletedTaskAnalysis: builder.query<CompletedAnalyticsResponse, void>({
             query: () => getRequest("/completed-jobs-stats"),
         }),
+        getActivityLog: builder.query<ActivityLog[], void>({
+            query: () => getRequest("/notifications"),
+        }),
     }),
 });
 
@@ -62,4 +66,5 @@ export const {
     useGetIncomeAnalysisQuery,
     useGetOngoingTaskAnalysisQuery,
     useGetCompletedTaskAnalysisQuery,
+    useGetActivityLogQuery
 } = analysis;
