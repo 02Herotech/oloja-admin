@@ -15,18 +15,26 @@ import {ViewTask} from "@/components/users/customers/CustomerTasks/view-task";
 import {CustomerTask} from "@/types/services/users/customers";
 import BackToPreviousTabButton
     from "@/components/global/Button/previousTabButton";
+import {useDeactivateUser} from "@/hooks/useDeactivateUser";
 
 type TabType = 'personal' | 'tasks';
 
 const CustomerDetailsPage = ({params}: { params: { id: string } }) => {
     const [activeTab, setActiveTab] = useState<TabType>('personal')
     const [selectedTask, setSelectedTask] = useState<CustomerTask | null>(null);
-
     const id = params.id;
     const {
         data: userData,
         isLoading,
+        refetch
     } = useGetCustomerByIdQuery(id as unknown as number);
+    const { deactivateUserHandler, isLoading: isDeactivating } = useDeactivateUser();
+
+    const handleDeactivate = async () => {
+        await deactivateUserHandler(parseInt(id));
+        refetch();
+    };
+
 
     if (isLoading) {
         return (
@@ -90,13 +98,15 @@ const CustomerDetailsPage = ({params}: { params: { id: string } }) => {
                         >
                             Send a message
                         </Button >
-                        {userData.user.enabled && (
+                        {userData.user.accountState !== "DEACTIVATED" && (
                             <Button
                                 className="w-full rounded-full text-secondary border-secondary bg-[#FCF4E6]"
                                 theme="outline"
+                                onClick={handleDeactivate}
+                                disabled={isDeactivating}
                             >
-                                Deactivate account
-                            </Button >
+                                {isDeactivating ? <Loader2 className="animate-spin size-5" /> : "Deactivate account"}
+                            </Button>
                         )}
                     </div >
                 </div >

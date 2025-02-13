@@ -57,6 +57,9 @@ export const analysis = createApi({
         getActivityLog: builder.query<ActivityLog[], void>({
             query: () => getRequest("/notifications"),
         }),
+        getNotificationTypes: builder.query<string[], void>({
+            query: () => getRequest("/admin/notif-types"),
+        }),
     }),
 });
 
@@ -66,5 +69,6 @@ export const {
     useGetIncomeAnalysisQuery,
     useGetOngoingTaskAnalysisQuery,
     useGetCompletedTaskAnalysisQuery,
-    useGetActivityLogQuery
+    useGetActivityLogQuery,
+    useGetNotificationTypesQuery
 } = analysis;
