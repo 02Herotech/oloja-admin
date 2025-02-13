@@ -71,6 +71,9 @@ export const users = createApi({
             query: ({ name, page = 0 }) =>
                 getRequest(`/users/search/${page}?name=${name}`),
         }),
+        deactivateUser: builder.mutation<void, number>({
+            query: (id) => postRequest(`/deactivate-user/${id}`, {}),
+        }),
     }),
 });
 
@@ -83,4 +86,5 @@ export const {
     useGetCustomerByIdQuery,
     useGetServiceProviderByIdQuery,
     useGetUsersByNameQuery,
+    useDeactivateUserMutation
 } = users;
