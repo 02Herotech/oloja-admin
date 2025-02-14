@@ -87,7 +87,7 @@ const ServiceProviderDetailsPage = ({ params }: { params: { id: string } }) => {
                         {userData.user.accountState !== "DEACTIVATED"
                             && (
                                 <Button
-                                    className="w-full rounded-full text-secondary border-secondary bg-[#FCF4E6]"
+                                    className="w-full rounded-full text-secondary border-secondary bg-[#fdfdfd]"
                                     theme="outline"
                                     onClick={handleDeactivate}
                                     disabled={isDeactivating}

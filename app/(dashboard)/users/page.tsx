@@ -9,6 +9,7 @@ import AllUsers from '@/components/users/AllUsers'
 import AllCustomers from '@/components/users/AllCustomers'
 import AllServiceProviders from '@/components/users/AllServiceProviders'
 import AllAdmins from '@/components/users/AllAdmins'
+import Button from '@/components/global/Button'
 
 // Separate component for the tab-dependent content
 const UserContent = () => {
@@ -91,13 +92,23 @@ const Users = () => {
 
   return (
     <div className="relative">
-      <div className="max-lg:flex w-full justify-between">
+      {/* Header Section: User Management + Signup Bonus */}
+      <div className="flex justify-between items-center w-full mb-6">
         <SectionHeader>User Management</SectionHeader>
-        <Suspense>
-          <TabButtons onTabChange={handleTabChange} />
-        </Suspense>
+        <Button
+          onClick={() => router.push('/users/rewards')}
+          className="px-4 py-2 bg-secondary text-white rounded-xl hover:bg-secondary-700 transition border-2 border-secondary" theme="primary"
+        >
+          Edit Bonuses
+        </Button>
       </div>
 
+      {/* Tabs Below the Header */}
+      <Suspense>
+        <TabButtons onTabChange={handleTabChange} />
+      </Suspense>
+
+      {/* User Content */}
       <Suspense>
         <UserContent />
       </Suspense>
