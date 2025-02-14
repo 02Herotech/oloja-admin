@@ -74,6 +74,15 @@ export const users = createApi({
         deactivateUser: builder.mutation<void, number>({
             query: (id) => postRequest(`/deactivate-user/${id}`, {}),
         }),
+
+        applySignupBonus: builder.mutation<void, { role: string; amount: string; validityDays: string; status?: string }>({
+            query: ({ role, amount, validityDays, status }) => 
+                postRequest(`/signup-bonus/add`, { role, amount, validityDays, ...(status && { status }) }),
+        }),              
+        
+        getSignupBonusDetails: builder.query<{ amount: number; role: string; status: string; validityDays: number }[], void>({
+            query: () => getRequest(`/signup-bonus`),
+        }),              
     }),
 });
 
@@ -86,5 +95,7 @@ export const {
     useGetCustomerByIdQuery,
     useGetServiceProviderByIdQuery,
     useGetUsersByNameQuery,
-    useDeactivateUserMutation
+    useDeactivateUserMutation,
+    useApplySignupBonusMutation,
+    useGetSignupBonusDetailsQuery
 } = users;
