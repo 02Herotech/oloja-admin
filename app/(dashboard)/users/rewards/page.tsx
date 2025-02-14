@@ -1,7 +1,6 @@
 'use client'
 
 import Button from "@/components/global/Button";
-import { getSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useApplySignupBonusMutation, useGetSignupBonusDetailsQuery } from "@/services/users"; // Adjust path as needed
 
