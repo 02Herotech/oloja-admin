@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "@/components/global/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
