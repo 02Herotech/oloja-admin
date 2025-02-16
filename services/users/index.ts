@@ -6,7 +6,11 @@ import { getSession } from "next-auth/react";
 import {
     GetServiceProviderByIdResponse
 } from "@/types/services/users/service-providers";
-import {AdminResponse} from "@/types/services/users/admin";
+import {
+    AdminResponse,
+    CreateAdminRequest,
+    PermissionResponse
+} from "@/types/services/users/admin";
 
 const postRequest = (url: string, details: unknown) => ({
     url,
@@ -82,7 +86,13 @@ export const users = createApi({
         
         getSignupBonusDetails: builder.query<{ amount: number; role: string; status: string; validityDays: number }[], void>({
             query: () => getRequest(`/signup-bonus`),
-        }),              
+        }),
+        getAvailablePermissions: builder.query<PermissionResponse, void>({
+            query: () => getRequest(`/admin/permissions`),
+        }),
+        createAdmin: builder.mutation<string, CreateAdminRequest>({
+            query: () => postRequest(``, {}),
+        }),
     }),
 });
 
@@ -97,5 +107,7 @@ export const {
     useGetUsersByNameQuery,
     useDeactivateUserMutation,
     useApplySignupBonusMutation,
-    useGetSignupBonusDetailsQuery
+    useGetSignupBonusDetailsQuery,
+    useGetAvailablePermissionsQuery,
+    useCreateAdminMutation
 } = users;
