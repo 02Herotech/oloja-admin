@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Input from "@/components/global/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
@@ -117,6 +117,7 @@ const CreateUserForm = () => {
         }
     };
 
+
     if (isPermissionLoading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
@@ -128,12 +129,12 @@ const CreateUserForm = () => {
     return (
         <FormProvider {...methods}>
             <div className="p-8 max-w-3xl bg-white rounded-lg">
-                <h1 className="text-3xl font-bold mb-2 text-primary">Create New Admin</h1>
+                <h1 id="account-details-section" className="text-3xl font-bold mb-2 text-primary">Create New Admin</h1>
                 <p className="font-satoshiMedium mb-6">
                     Fill in the details below to add a new admin.
                 </p>
                 <form className="space-y-6" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <div className="grid grid-cols-2 gap-6">
+                    <div  className="grid grid-cols-2 gap-6">
                         <Input label="First Name" name="firstName" type="text" placeholder="John" rules={["required"]} className="w-full border border-[#E9ECF1]" />
                         <Input label="Last Name" name="lastName" type="text" placeholder="Doe" rules={["required"]} className="w-full border border-[#E9ECF1]" />
                     </div>
@@ -152,7 +153,7 @@ const CreateUserForm = () => {
                         </div>
                     </div>
 
-                    <div className="rounded-xl p-4 border border-primary">
+                    <div  id="permissions-section" className="rounded-xl p-4 border border-primary">
                         <div className="flex items-center justify-between mb-3">
                             <label className="text-lg font-satoshiBold">Permissions</label>
                             <div className="flex items-center gap-3 text-primary">
