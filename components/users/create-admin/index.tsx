@@ -6,7 +6,7 @@ import { TbX } from "react-icons/tb";
 import { useGetAllAdminsQuery } from "@/services/users";
 import UserCard from "@/components/users/UserCard";
 import { Loader2 } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { User } from "@/types/services/users/customers";
 import { formatDate } from "@/lib/utils";
 
