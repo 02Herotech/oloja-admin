@@ -22,7 +22,13 @@ export interface PermissionResponse {
 export interface CreateAdminRequest {
     firstName: string;
     lastName: string;
-    email: string;
+    emailAddress: string;
     role: string;
     permissions: Record<string, string[]>;
+}
+
+export interface CreateAdminResponse {
+    data: object;
+    message: string,
+    successful: boolean
 }

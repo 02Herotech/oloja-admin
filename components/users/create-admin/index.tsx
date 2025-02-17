@@ -39,40 +39,40 @@ const CreateUserSidebar = () => {
         }
     };
 
-    useEffect(() => {
-        const accountDetailsSection = document.getElementById("account-details-section");
-        const permissionsSection = document.getElementById("permissions-section");
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        if (entry.target.id === "account-details-section") {
-                            setActiveTab("account");
-                        } else if (entry.target.id === "permissions-section") {
-                            setActiveTab("permissions");
-                        }
-                    }
-                });
-            },
-            {
-                threshold: 0.5,
-            }
-        );
-
-        if (accountDetailsSection) observer.observe(accountDetailsSection);
-        if (permissionsSection) observer.observe(permissionsSection);
-
-        return () => {
-            if (accountDetailsSection) observer.unobserve(accountDetailsSection);
-            if (permissionsSection) observer.unobserve(permissionsSection);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const accountDetailsSection = document.getElementById("account-details-section");
+    //     const permissionsSection = document.getElementById("permissions-section");
+    //
+    //     const observer = new IntersectionObserver(
+    //         (entries) => {
+    //             entries.forEach((entry) => {
+    //                 if (entry.isIntersecting) {
+    //                     if (entry.target.id === "account-details-section") {
+    //                         setActiveTab("account");
+    //                     } else if (entry.target.id === "permissions-section") {
+    //                         setActiveTab("permissions");
+    //                     }
+    //                 }
+    //             });
+    //         },
+    //         {
+    //             threshold: 0.5,
+    //         }
+    //     );
+    //
+    //     if (accountDetailsSection) observer.observe(accountDetailsSection);
+    //     if (permissionsSection) observer.observe(permissionsSection);
+    //
+    //     return () => {
+    //         if (accountDetailsSection) observer.unobserve(accountDetailsSection);
+    //         if (permissionsSection) observer.unobserve(permissionsSection);
+    //     };
+    // }, []);
 
     if (pathname !== "/create-admin") return null;
 
     return (
-        <nav className="hidden lg:block w-[278px] min-h-[calc(100vh-100px)] py-2 mt-[100px] px-6 fixed bg-white border-r">
+        <nav className="hidden lg:block w-[278px] min-h-[calc(100vh-300px)] py-2 mt-[100px] px-6 fixed bg-white border-r">
             <div className="flex justify-start items-center">
                 <button
                     onClick={() => router.push("/dashboard")}
@@ -118,7 +118,7 @@ const CreateUserSidebar = () => {
             <div className="mt-8 w-full border-t pt-4">
                 <h3 className="font-satoshiBold text-xl mb-4">Other admins</h3>
 
-                <div className="w-full flex flex-col items-center justify-center mt-4 overflow-y-auto max-h-[300px] pt-6 ">
+                <div className="w-full flex flex-col items-center justify-start mt-4 flex-grow overflow-y-auto min-h-0 max-h-[400px]">
                     {isLoading ? (
                         <div className="flex justify-center items-center">
                             <Loader2 className="animate-spin size-20 text-primary" />
@@ -128,7 +128,7 @@ const CreateUserSidebar = () => {
                     ) : adminsData && adminsData.content ? (
                         adminsData.content.map((admin) => (
                             <div
-                                onClick={() => router.push('/users/admins/${admin.id}')}
+                                onClick={() => router.push(`/users/admins/${admin.id}`)}
                                 key={admin.id}
                                 className="w-full">
                                 <UserCard {...mapUserToCardProps(admin)} />

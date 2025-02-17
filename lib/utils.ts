@@ -104,3 +104,17 @@ export function formatNumber(number: number): string {
 
   return scaled.toFixed() + suffix;
 }
+
+export const formatString = (str: string): string => {
+    if (str.includes('_')) {
+        return str
+            .replace(/_/g, ' ')
+            .replace(/(^|\s)\S/g, (match) => match.toUpperCase());
+    }
+
+    return str
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, (match) => match.toUpperCase())
+        .trim();
+};
+

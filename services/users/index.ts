@@ -8,7 +8,7 @@ import {
 } from "@/types/services/users/service-providers";
 import {
     AdminResponse,
-    CreateAdminRequest,
+    CreateAdminRequest, CreateAdminResponse,
     PermissionResponse
 } from "@/types/services/users/admin";
 
@@ -90,8 +90,8 @@ export const users = createApi({
         getAvailablePermissions: builder.query<PermissionResponse, void>({
             query: () => getRequest(`/admin/permissions`),
         }),
-        createAdmin: builder.mutation<string, CreateAdminRequest>({
-            query: () => postRequest(``, {}),
+        createAdmin: builder.mutation<CreateAdminResponse, CreateAdminRequest>({
+            query: (data: CreateAdminRequest) => postRequest(``, data),
         }),
     }),
 });

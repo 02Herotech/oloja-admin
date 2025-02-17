@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PermissionGroup } from "@/types/services/users/admin";
+import {formatString} from "@/lib/utils";
 
 interface AdminPermissionsProps {
     groups: PermissionGroup[];
@@ -22,12 +23,12 @@ const AdminPermissions: React.FC<AdminPermissionsProps> = ({ groups, onChange })
         });
     };
 
-    const isGroupPartiallyChecked = (group: PermissionGroup) => {
+    const isGroupPartiallyChecked = (group: PermissionGroup): boolean => {
         const checkedCount = group.permissions.filter((p) => p.isChecked).length;
         return checkedCount > 0 && checkedCount < group.permissions.length;
     };
 
-    const isGroupFullyChecked = (group: PermissionGroup) => {
+    const isGroupFullyChecked = (group: PermissionGroup): boolean => {
         return group.permissions.every((p) => p.isChecked);
     };
 
@@ -52,7 +53,9 @@ const AdminPermissions: React.FC<AdminPermissionsProps> = ({ groups, onChange })
                                 }}
                                 onChange={(e) => handleGroupCheckbox(group.name, e.target.checked)}
                             />
-                            <span className="font-medium text-primary">{group.name}</span>
+                            <span className="font-medium text-primary">
+                                {formatString(group.name)}
+                            </span>
                         </div>
                         {collapsedGroups[group.name] ? (
                             <ChevronDown className="size-6 text-primary" />
@@ -69,7 +72,9 @@ const AdminPermissions: React.FC<AdminPermissionsProps> = ({ groups, onChange })
                                     checked={permission.isChecked}
                                     onChange={(e) => onChange(group.name, permission.name, e.target.checked)}
                                 />
-                                <span className="text-gray-700">{permission.name}</span>
+                                <span className="text-gray-700">
+                                    {formatString(permission.name)}
+                                </span>
                             </div>
                         ))}
                 </div>
