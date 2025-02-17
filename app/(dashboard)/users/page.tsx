@@ -95,12 +95,6 @@ const Users = () => {
       {/* Header Section: User Management + Signup Bonus */}
       <div className="flex justify-between items-center w-full mb-6">
         <SectionHeader>User Management</SectionHeader>
-        <Button
-          onClick={() => router.push('/users/rewards')}
-          className="px-4 py-2 bg-secondary text-white rounded-xl hover:bg-secondary-700 transition border-2 border-secondary" theme="primary"
-        >
-          Edit Bonuses
-        </Button>
       </div>
 
       {/* Tabs Below the Header */}
