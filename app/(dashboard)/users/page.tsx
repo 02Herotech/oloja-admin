@@ -9,7 +9,6 @@ import AllUsers from '@/components/users/AllUsers'
 import AllCustomers from '@/components/users/AllCustomers'
 import AllServiceProviders from '@/components/users/AllServiceProviders'
 import AllAdmins from '@/components/users/AllAdmins'
-import Button from '@/components/global/Button'
 
 // Separate component for the tab-dependent content
 const UserContent = () => {
