@@ -19,6 +19,8 @@ import CompletedTaskIcon from "/public/assets/icons/completed-task.svg";
 import OngoingTask from "/public/assets/icons/ongoing-task.svg";
 import TotalIncome from "/public/assets/icons/total-income.svg";
 import ActivityIcon from "/public/assets/icons/activity-icon.svg";
+import AccountDetailsIcon from "/public/assets/icons/admin-permission.svg";
+import PermissionIcon from "/public/assets/icons/permission.svg";
 
 
 const Icons = {
@@ -41,6 +43,8 @@ const Icons = {
     OngoingTask,
     TotalIncome,
     ActivityIcon,
+    AccountDetailsIcon,
+    PermissionIcon
 };
 
 export default Icons;

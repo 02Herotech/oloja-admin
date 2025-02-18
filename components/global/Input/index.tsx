@@ -24,36 +24,36 @@ export type ValidationRules = {
 };
 
 const Input = ({
-    label,
-    placeholder,
-    type = "text",
-    id,
-    onChange = () => { },
-    max,
-    min,
-    pattern,
-    rules = [],
-    name,
-    autoComplete = "off",
-    disabled = false,
-    theme = "outline",
-    focused = false,
-    optional = false,
-    className = "",
-    showPassword: _showPassword = false,
-    left,
-    right,
-    paddingLeft = "",
-    paddingRight = "",
-    customError,
-    customMessage,
-    characters = 50,
-    hint,
-    info = {},
-    tag = "input",
-    isLoading = false,
-    ...rest
-}: InputProps) => {
+                   label,
+                   placeholder,
+                   type = "text",
+                   id,
+                   onChange = () => { },
+                   max,
+                   min,
+                   pattern,
+                   rules = [],
+                   name,
+                   autoComplete = "off",
+                   disabled = false,
+                   theme = "outline",
+                   focused = false,
+                   optional = false,
+                   className = "",
+                   showPassword: _showPassword = false,
+                   left,
+                   right,
+                   paddingLeft = "",
+                   paddingRight = "",
+                   customError,
+                   customMessage,
+                   characters = 50,
+                   hint,
+                   info = {},
+                   tag = "input",
+                   isLoading = false,
+                   ...rest
+               }: InputProps) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [showPassword, setShowPassword] = useState(_showPassword);
     const [passwordCheck, setPasswordCheck] = useState({
@@ -216,7 +216,7 @@ const Input = ({
                 return `p-4 bg-white text-tc-secondary border-[1.5px] disabled:bg-[#83819729] disabled:border-[#83819729] ${error
                     ? "border-[#E98282] focus:border-[#E98282]"
                     : "border-[#5B5B66] focus:border-primary"
-                    }`;
+                }`;
             case "plain":
                 return "p-4 bg-transparent border-[1.5px] border-transparent";
             default:
@@ -280,7 +280,7 @@ const Input = ({
                     className={`w-full active:border-primary text-dark ${inputTheme(
                         theme
                     )} text-base h-12 overflow-hidden font-normal rounded-[10px] outline-none ${className} ${type === "password" ? "pr-16" : ""
-                        } ${left ? paddingLeft : ""} ${right ? paddingRight : ""}`}
+                    } ${left ? paddingLeft : ""} ${right ? paddingRight : ""}`}
                     type={showPassword ? "text" : type}
                     placeholder={placeholder}
                     id={id}

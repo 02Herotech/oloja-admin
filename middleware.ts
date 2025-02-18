@@ -49,6 +49,7 @@ export const config = {
         "/payments/:path*",
         "/settings/:path*",
         "/users/:path*",
+        "/create-admin/:path*",
         "/",
     ],
 };

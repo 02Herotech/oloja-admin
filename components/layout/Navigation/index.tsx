@@ -5,8 +5,11 @@ import NavigationLink from "../NavigationLink";
 import Dropdown from "@/components/global/Dropdown";
 import { cn } from "@/lib/utils";
 import { PlusIcon } from "lucide-react";
+import {useRouter} from "next/navigation";
 
 const Navigation = () => {
+    const router = useRouter();
+
     const links = [
         {
             name: "Dashboard",
@@ -94,7 +97,7 @@ const Navigation = () => {
     const dropdownButtons = [
         {
             label: "Create New User",
-            onClick: () => { },
+            onClick: ()=>router.push("/create-user"),
         },
     ];
 
