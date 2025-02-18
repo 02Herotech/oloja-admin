@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Popup from "@/components/global/Popup";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
+import { formatRole } from "@/utils/formatRole";
 
 
 import { useApplySignupBonusMutation, useGetSignupBonusDetailsQuery } from "@/services/users";
@@ -46,13 +47,14 @@ export default function SignupBonus() {
     try {
       await applySignupBonus({ role, amount, validityDays }).unwrap();
       refetch();
-      setPopupMessage(`${role} bonus saved successfully!`);
-      setIsSuccess(true); // Set success state
+      const formattedRole = formatRole(role); 
+      setPopupMessage(`${formattedRole} bonus saved successfully!`);
+      setIsSuccess(true); 
       setIsPopupOpen(true);
     } catch (error) {
       console.error("Error saving signup bonus:", error);
       setPopupMessage("Failed to save signup bonus. Please try again.");
-      setIsSuccess(false); // Set error state
+      setIsSuccess(false); 
       setIsPopupOpen(true);
     }
   };
@@ -237,8 +239,8 @@ export default function SignupBonus() {
       <Button
         onClick={() => handleApplySignupBonus("SERVICE_PROVIDER", serviceProviderBonus, serviceProviderDays)}
         disabled={!serviceProviderEnabled} // Disable button when not enabled
-        className={`py-3 px-6 rounded-full text-lg border-secondary text-white border-400gray- text-black
-          ${serviceProviderEnabled ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 cursor-not-allowed"}`}
+        className={`py-3 px-6 rounded-full text-lg border-secondary text-white
+          ${serviceProviderEnabled ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
       >
         Save Changes
       </Button>
