@@ -51,11 +51,11 @@ const ActivityLog: React.FC = () => {
         );
 
     return (
-        <div className="w-full px-4 py-5 sm:px-5"> {/* Added responsive padding */}
-            <div className="flex flex-col sm:flex-row justify-between mb-4 gap-2 sm:gap-4"> {/* Changed to column on smaller screens */}
+        <div className="w-full px-4 py-5 sm:px-5">
+            <div className="flex flex-col sm:flex-row justify-between mb-4 gap-2 sm:gap-4">
                 <h2 className="text-2xl font-satoshiBold text-[#140B31]">Activity Log</h2>
-                <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2"> {/* Added flex-wrap */}
-                    <p className="text-xs text-[#60667D] whitespace-nowrap">Sort:</p> {/* Added whitespace-nowrap */}
+                <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2">
+                    <p className="text-xs text-[#60667D] whitespace-nowrap">Sort:</p>
                     <div className="flex gap-2">
                         <select
                             onChange={handleTypeChange}
@@ -73,7 +73,29 @@ const ActivityLog: React.FC = () => {
                         >
                             <option value="">Date</option>
                             <option value="0">Today</option>
-                            {/* ... other options */}
+                            <option value="7">1 week ago</option>
+
+                            <option value="14">2 weeks ago</option>
+
+                            <option value="21">3 weeks ago</option>
+
+                            <option value="28">4 weeks ago</option>
+
+                            <option value="35">5 weeks ago</option>
+
+                            <option value="42">6 weeks ago</option>
+
+                            <option value="49">7 weeks ago</option>
+
+                            <option value="56">8 weeks ago</option>
+
+                            <option value="63">9 weeks ago</option>
+
+                            <option value="70">10 weeks ago</option>
+
+                            <option value="77">11 weeks ago</option>
+
+                            <option value="84">12 weeks ago</option>
                         </select>
                     </div>
                 </div>
