@@ -59,7 +59,7 @@ const UserAnalytics: React.FC = () => {
     return (
         <div className='w-full px-5 py-5'>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-extrabold text-[#140B31]">User Analytics</h2>
+                <h2 className="text-2xl font-satoshiBold text-[#140B31]">User Analytics</h2>
                 <button className="text-xs text-[#221354] border-[0.5px] border-[#221354] px-3 py-1 rounded-[5px]">
                     This week
                 </button>

@@ -118,3 +118,30 @@ export const formatString = (str: string): string => {
         .trim();
 };
 
+export const formatValue = (value: number | string): string => {
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+
+    if (isNaN(numericValue)) {
+        return value.toString();
+    }
+
+    if (numericValue >= 1_000_000) {
+        const millionValue = numericValue / 1_000_000;
+        if (numericValue % 1_000_000 !== 0) {
+            return `${millionValue.toFixed(1)}M`;
+        } else {
+            return `${millionValue.toFixed(0)}M`;
+        }
+    } else if (numericValue >= 1_000) {
+        const thousandValue = numericValue / 1_000;
+        if (numericValue % 1_000 === 0) {
+            return `${thousandValue.toFixed(0)}K`;
+        } else {
+            return `${thousandValue.toFixed(1)}K`;
+        }
+    } else if (numericValue >= 100) {
+        return `${numericValue}K`;
+    } else {
+        return numericValue.toString();
+    }
+};
