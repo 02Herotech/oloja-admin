@@ -101,9 +101,9 @@ const ActivityLog: React.FC = () => {
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl shadow-md w-full overflow-y-auto max-h-[400px]">
+            <div className="bg-white p-4 rounded-2xl shadow-md w-full overflow-y-auto max-h-[300px]">
                 {isLoading ? (
-                    <div className="flex justify-center items-center h-full">
+                    <div className="flex justify-center items-center h-[300px] max-h-[300px]">
                         <Loader2 className="animate-spin size-20 text-primary" />
                     </div>
                 ) : error ? (
