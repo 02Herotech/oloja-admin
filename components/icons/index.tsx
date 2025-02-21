@@ -21,6 +21,8 @@ import TotalIncome from "/public/assets/icons/total-income.svg";
 import ActivityIcon from "/public/assets/icons/activity-icon.svg";
 import AccountDetailsIcon from "/public/assets/icons/admin-permission.svg";
 import PermissionIcon from "/public/assets/icons/permission.svg";
+import NumberPlus from "/public/assets/icons/number-plus.svg";
+import NumberMinus from "/public/assets/icons/number-minus.svg";
 
 
 const Icons = {
@@ -44,7 +46,9 @@ const Icons = {
     TotalIncome,
     ActivityIcon,
     AccountDetailsIcon,
-    PermissionIcon
+    PermissionIcon,
+    NumberPlus,
+    NumberMinus
 };
 
 export default Icons;

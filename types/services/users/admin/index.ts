@@ -32,3 +32,9 @@ export interface CreateAdminResponse {
     message: string,
     successful: boolean
 }
+
+export interface UpdatePricingFeeRequest {
+    gstRate: number;
+    serviceCharge: number,
+    taskCharge: number
+}

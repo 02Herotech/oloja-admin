@@ -93,6 +93,9 @@ export const users = createApi({
         createAdmin: builder.mutation<CreateAdminResponse, CreateAdminRequest>({
             query: (data: CreateAdminRequest) => postRequest(``, data),
         }),
+        updatePricingFee: builder.mutation<CreateAdminResponse, CreateAdminRequest>({
+            query: (data: CreateAdminRequest) => postRequest(``, data),
+        }),
     }),
 });
 
