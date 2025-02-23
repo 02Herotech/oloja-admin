@@ -6,11 +6,11 @@ import {
     UpdatePricingFeeRequest,
 } from "@/types/services/users/admin";
 
-const postRequest = (url: string, details: unknown) => ({
-    url,
-    method: "POST",
-    body: details,
-});
+// const postRequest = (url: string, details: unknown) => ({
+//     url,
+//     method: "POST",
+//     body: details,
+// });
 
 const putRequest = (url: string, details: unknown) => ({
     url,
