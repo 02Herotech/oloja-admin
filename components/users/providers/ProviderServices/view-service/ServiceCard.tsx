@@ -1,9 +1,8 @@
 import {ServiceProviderListing} from "@/types/services/users/service-providers";
-import {Star, MoreVertical} from "lucide-react";
+import {MoreVertical} from "lucide-react";
 import Image from "next/image";
 import React, {useState} from "react";
 import DefaultImage from "/public/assets/images/defaultTaskImage.png";
-import { GoStarFill } from "react-icons/go";
 import {Rating} from "@/components/global/Rating";
 
 interface ServiceCardProps {
