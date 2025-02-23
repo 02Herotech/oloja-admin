@@ -57,19 +57,13 @@ export interface ServiceProviderListing {
 export interface ReviewDetail {
     id: number;
     comment: string;
-    createdAt: [number, number, number, number, number, number, number];
+    createdAt: [number, number, number];
+    serviceProvider: User
+    customer: User
+    reviewerUserId: number;
     rating: number;
     serviceCategory: Category;
-    customer: {
-        id: number;
-        user: {
-            id: number;
-            emailAddress: string;
-            firstName: string;
-            lastName: string;
-            profileImage: string;
-        };
-    };
+
 }
 
 
@@ -77,4 +71,18 @@ export interface GetServiceProviderByIdResponse {
     user: Customer;
     serviceProviderListing: ServiceProviderListing[];
     bio: string;
+    document: string;
+    abn:string;
+    review: ReviewDetail[];
+}
+
+export interface User {
+    id: number;
+    user: {
+        id: number;
+        emailAddress: string;
+        firstName: string;
+        lastName: string;
+        profileImage: string;
+    };
 }

@@ -12,6 +12,11 @@ const postRequest = (url: string, details: unknown) => ({
     body: details,
 });
 
+const putRequest = (url: string, details: unknown) => ({
+    url,
+    method: "PUT",
+    body: details,
+});
 // const getRequest = (url: string) => ({
 //     url,
 //     method: "GET",
@@ -37,7 +42,7 @@ export const admin = createApi({
     }),
     endpoints: (builder) => ({
         updatePricingFee: builder.mutation<string, UpdatePricingFeeRequest>({
-            query: (data: UpdatePricingFeeRequest) => postRequest(`/charges`, data),
+            query: (data: UpdatePricingFeeRequest) => putRequest(`/charges`, data),
         }),
     }),
 });

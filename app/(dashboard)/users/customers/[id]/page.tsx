@@ -58,10 +58,22 @@ const CustomerDetailsPage = ({params}: { params: { id: string } }) => {
             <div className="mb-4">
                 <SectionHeader >User Management</SectionHeader >
             </div >
+            <div className={'flex justify-start items-start gap-2'}>
+                <BackToPreviousTabButton />
+                <div className="flex space-x-6 mb-2">
+
+                    <button
+                        className={`px-5 py-2 rounded-xl font-satoshiMedium bg-white text-primary border border-primary hover:text-white hover:bg-tc-primary hover:text-bg-tc-primary'
+                        `}
+                    >
+                        Customer
+                    </button>
+
+                </div>
+            </div>
             <div
                 className="border border-blue-100 rounded-xl p-5 lg:p-8 w-full"
             >
-                <BackToPreviousTabButton/>
                 <div className="flex items-start justify-between mb-8">
                     <div className="flex items-center gap-4">
                         {userData.user.profileImage ? (
@@ -100,7 +112,7 @@ const CustomerDetailsPage = ({params}: { params: { id: string } }) => {
                         </Button >
                         {userData.user.accountState !== "DEACTIVATED" && (
                             <Button
-                                className="w-full rounded-full text-secondary border-secondary bg-[#FCF4E6]"
+                                className="w-full rounded-full text-[#E10909] border-[#E10909] bg-[#FCF4E6]"
                                 theme="outline"
                                 onClick={handleDeactivate}
                                 disabled={isDeactivating}

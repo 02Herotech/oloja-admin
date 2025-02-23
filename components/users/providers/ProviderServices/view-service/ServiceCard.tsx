@@ -3,6 +3,8 @@ import {Star, MoreVertical} from "lucide-react";
 import Image from "next/image";
 import React, {useState} from "react";
 import DefaultImage from "/public/assets/images/defaultTaskImage.png";
+import { GoStarFill } from "react-icons/go";
+import {Rating} from "@/components/global/Rating";
 
 interface ServiceCardProps {
     listing: ServiceProviderListing,
@@ -36,10 +38,10 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({listing, onClick}) => {
     return (
         <div
             onClick={onClick}
-            className="bg-white p-4 md:p-6 rounded-3xl shadow-lg w-full max-w-xs md:max-w-lg lg:max-w-[48%] flex flex-col md:flex-row lg:flex-col cursor-pointer"
+            className="bg-white p-4 md:p-6 rounded-3xl shadow-lg w-full max-w-xs md:max-w-lg lg:max-w-[48%] mb-5 flex flex-col lg:flex-col cursor-pointer"
         >
             <div
-                className="relative min-w-[100px] w-28 h-24 md:w-40 md:h-32 lg:w-full lg:h-56 overflow-hidden rounded-xl flex-shrink-0"
+                className="relative  w-28 h-24  lg:w-full lg:h-56 rounded-xl flex-shrink-0"
             >
                 <Image
                     src={businessPictures.length > 0 ? businessPictures[0] : DefaultImage}
@@ -52,7 +54,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({listing, onClick}) => {
             <div
                 className="flex flex-1 flex-col justify-between mt-4 md:mt-0 md:ml-4 lg:ml-0 lg:mt-4"
             >
-                <div className="flex justify-between items-start relative">
+                <div className="flex justify-between items-start relative gap-2">
                     <h2 className="text-lg lg:text-xl font-extrabold">{listingTitle}</h2 >
 
                     <div className="relative">
@@ -94,7 +96,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({listing, onClick}) => {
                 <p className="text-purple-600 font-medium text-md lg:text-lg">From
                                                                               ${planOnePrice}</p >
 
-                <div className="flex justify-between items-center mt-3">
+                <div className="lg:flex lg:justify-between items-center mt-3 md:flex md:flex-row md:gap-4">
                     <div className="flex items-center gap-2">
                         {serviceProvider.user.profileImage ? (
                             <Image
@@ -118,13 +120,14 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({listing, onClick}) => {
                         >{serviceProvider.user.fullName}</span >
                     </div >
 
-                    <div className="flex gap-1">
-                        {Array.from({length: 5}, (_, i) => (
-                            <Star
-                                key={i} size={16}
-                                className={i < Math.round(averageRating) ? "text-yellow-500" : "text-gray-300"}
-                            />
-                        ))}
+                    <div className="flex gap-1 justify-end">
+                        {/*{Array.from({length: 5}, (_, i) => (*/}
+                        {/*    <Star*/}
+                        {/*        key={i} size={16}*/}
+                        {/*        className={i < Math.round(averageRating) ? "bg:yellow-500 text-yellow-500" : "text-gray-300"}*/}
+                        {/*    />*/}
+                        {/*))}*/}
+                        <Rating value={averageRating}/>
                     </div >
                 </div >
             </div >

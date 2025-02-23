@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Button from "@/components/global/Button";
 import { ArrowLeft } from "lucide-react";
 
 const BackToPreviousTabButton = () => {
@@ -12,10 +11,7 @@ const BackToPreviousTabButton = () => {
   };
 
   return (
-    <Button onClick={handleBack} className="text-sm rounded-full bg-primary border border-primary text-white mb-5">
-      <ArrowLeft className="size-4" />
-      Back
-    </Button>
+      <ArrowLeft onClick={handleBack} className="size-2 bg-black text-white rounded-[5px] w-[50px] h-[40px] mb-5 cursor-pointer" />
   );
 };
 
