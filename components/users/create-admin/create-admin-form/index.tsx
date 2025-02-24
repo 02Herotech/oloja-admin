@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "@/components/global/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { MdArrowDropDown } from "react-icons/md";
@@ -23,6 +23,7 @@ import Image from "next/image";
 const CreateUserForm = () => {
     const [createAdmin, { isLoading }] = useCreateAdminMutation();
     const [showModal, setShowModal] = useState(false);
+    const selectRef = useRef<HTMLSelectElement | null>(null);
 
     const methods = useForm({
         mode: "onChange",
@@ -34,6 +35,13 @@ const CreateUserForm = () => {
             permissions: {},
         },
     });
+
+    const handleDropdownClick = () => {
+        if (selectRef.current) {
+            selectRef.current.focus();
+            selectRef.current.click();
+        }
+    };
 
     const { data: permissionResponse, isLoading: isPermissionLoading } =
         useGetAvailablePermissionsQuery();
@@ -168,13 +176,21 @@ const CreateUserForm = () => {
                         <Input label="Email Address" name="emailAddress" type="email" placeholder="JohnDoe@gmail.com" rules={["email", "required"]} />
                         <div>
                             <label className="block text-sm font-satoshiMedium">Role</label>
-                            <div className="relative mt-1">
-                                <select {...methods.register("role", { required: true })} className="w-full px-3 py-2 border border-[#E9ECF1] rounded-xl appearance-none focus:outline-none bg-transparent">
+                            <div className="mt-1 relative">
+                                <select
+                                    {...methods.register("role", { required: true })}
+                                    ref={selectRef}
+                                    className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none appearance-none bg-white"
+                                >
                                     <option value="">Select Role</option>
                                     <option value="SUPER_ADMIN">Super Admin</option>
                                     <option value="ADMIN">Admin</option>
                                 </select>
-                                <MdArrowDropDown className="absolute right-3 top-3 text-gray-500" size={20} />
+                                <MdArrowDropDown
+                                    className="absolute right-3 top-3 text-gray-500 pointer-events-none"
+                                    size={24}
+                                    onClick={handleDropdownClick}
+                                />
                             </div>
                         </div>
                     </div>

@@ -63,9 +63,9 @@ const DashboardCards: React.FC = () => {
             />
             <Card
                 title="Total Income"
-                value={isIncomeLoading ? '...' : `$${formatValue(incomeData?.totalIncome as number) ?? 0}`}
+                value={isIncomeLoading ? '...' : `$${formatValue(incomeData?.totalIncome as number) ?? "0"}`}
                 percentage={isIncomeLoading ? 0 : parseFloat(incomeData?.percentageChange.toFixed(2) ?? "0")}
-                description={isIncomeLoading ? '' : `$${formatValue(incomeData?.todayIncome as number) ?? 0} Today · $${formatValue(incomeData?.yesterdayIncome as number) ?? 0} Yesterday`}
+                description={isIncomeLoading ? '' : `$${formatValue(incomeData?.todayIncome as number) ?? "0"} Today · $${formatValue(incomeData?.yesterdayIncome as number) ?? 0} Yesterday`}
                 icon={<Icons.TotalIncome />}
                 backgroundStyles={{
                     backgroundImage: "/assets/images/dashboard/total-income.png",

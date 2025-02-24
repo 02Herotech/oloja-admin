@@ -23,6 +23,7 @@ import AccountDetailsIcon from "/public/assets/icons/admin-permission.svg";
 import PermissionIcon from "/public/assets/icons/permission.svg";
 import NumberPlus from "/public/assets/icons/number-plus.svg";
 import NumberMinus from "/public/assets/icons/number-minus.svg";
+import BonusIcon from "/public/assets/icons/bonus.svg";
 
 
 const Icons = {
@@ -48,7 +49,8 @@ const Icons = {
     AccountDetailsIcon,
     PermissionIcon,
     NumberPlus,
-    NumberMinus
+    NumberMinus,
+    BonusIcon
 };
 
 export default Icons;

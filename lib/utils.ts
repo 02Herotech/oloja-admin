@@ -122,7 +122,7 @@ export const formatValue = (value: number | string): string => {
     const numericValue = typeof value === 'string' ? parseFloat(value) : value;
 
     if (isNaN(numericValue)) {
-        return value.toString();
+        return numericValue as unknown as string;
     }
 
     if (numericValue >= 1_000_000) {
