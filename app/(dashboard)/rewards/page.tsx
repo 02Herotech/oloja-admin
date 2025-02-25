@@ -2,76 +2,56 @@
 
 import Button from "@/components/global/Button";
 import { useState, useEffect } from "react";
-import { Loader2 } from 'lucide-react'
-import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Popup from "@/components/global/Popup";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
-import { formatRole } from "@/utils/formatRole";
+import { useSaveRewardPointsMutation, useGetRewardPointsQuery } from "@/services/users";
+import { Loader2 } from "lucide-react";
 
-
-import { useApplySignupBonusMutation, useGetSignupBonusDetailsQuery } from "@/services/users";
-
-export default function SignupBonus() {
-  const { data, isLoading, refetch } = useGetSignupBonusDetailsQuery();
-  const [applySignupBonus] = useApplySignupBonusMutation();
-
-  const [customerBonus, setCustomerBonus] = useState("");
-  const [customerDays, setCustomerDays] = useState("");
-  const [serviceProviderBonus, setServiceProviderBonus] = useState("");
-  const [serviceProviderDays, setServiceProviderDays] = useState("");
-  const [customerEnabled, setCustomerEnabled] = useState(false);
-  const [serviceProviderEnabled, setServiceProviderEnabled] = useState(false);
-
+export default function RewardPoints() {
   const [popupMessage, setPopupMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);  // Track success or error state
-
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [rewards, setRewards] = useState<{ fixedAmount: number; role: string; status: string; type: string }[]>([]);
+  
+  const { data, isLoading, refetch } = useGetRewardPointsQuery();
+  const [saveRewardPoints] = useSaveRewardPointsMutation();
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
-      const customerBonusData = data.find((bonus) => bonus.role === "CUSTOMER");
-      const serviceProviderBonusData = data.find((bonus) => bonus.role === "SERVICE_PROVIDER");
-  
-      setCustomerBonus(customerBonusData?.amount?.toString() || "");
-      setCustomerDays(customerBonusData?.validityDays?.toString() || "");
-      setCustomerEnabled(customerBonusData?.status === "ENABLED");
-  
-      setServiceProviderBonus(serviceProviderBonusData?.amount?.toString() || "");
-      setServiceProviderDays(serviceProviderBonusData?.validityDays?.toString() || "");
-      setServiceProviderEnabled(serviceProviderBonusData?.status === "ENABLED");
+      setRewards(data);
     }
-  }, [data]);  
+  }, [data]);
 
-  const handleApplySignupBonus = async (role: string, amount: string, validityDays: string) => {
+  const handleSaveRewardPoints = async (role: string, fixedAmount: number, type: string, enabled: boolean) => {
     try {
-      await applySignupBonus({ role, amount, validityDays }).unwrap();
+      await saveRewardPoints({ role, fixedAmount, type, status: enabled ? "ENABLED" : "DISABLED" }).unwrap();
       refetch();
-      const formattedRole = formatRole(role); 
-      setPopupMessage(`${formattedRole} bonus saved successfully!`);
-      setIsSuccess(true); 
+      setPopupMessage(`Reward for ${type.replace(/_/g, " ")} saved successfully!`);
+      setIsSuccess(true);
       setIsPopupOpen(true);
     } catch (error) {
-      console.error("Error saving signup bonus:", error);
-      setPopupMessage("Failed to save signup bonus. Please try again.");
-      setIsSuccess(false); 
+      console.error("Error saving reward points:", error);
+      setPopupMessage("Failed to save reward points. Please try again.");
+      setIsSuccess(false);
       setIsPopupOpen(true);
     }
   };
 
   const handleEnableToggle = async (role: string, enabled: boolean) => {
     try {
-      const isCustomer = role === "CUSTOMER";
-      const amount = isCustomer ? customerBonus : serviceProviderBonus;
-      const validityDays = isCustomer ? customerDays : serviceProviderDays;
       const newStatus = enabled ? "ENABLED" : "DISABLED";
 
-      await applySignupBonus({
+      await saveRewardPoints({
         role,
-        amount,
-        validityDays,
+        fixedAmount: rewards.find((r) => r.role === role)?.fixedAmount || 0,
+        type: rewards.find((r) => r.role === role)?.type || "",
         status: newStatus,
       }).unwrap();
+
+      setRewards(prevRewards =>
+        prevRewards.map(r => (r.role === role ? { ...r, status: newStatus } : r))
+      );
 
       refetch();
     } catch (error) {
@@ -80,50 +60,29 @@ export default function SignupBonus() {
   };
 
   return (
-    // <div className="flex h-screen w-screen overflow-hidden bg-gray-100">
     <div className="flex h-screen w-screen bg-gray-100 overflow-hidden max-w-screen-xl mx-auto">
-
-      <div className="w-full h-full flex flex-col bg-white">
-
-        <h2 className="text-5xl font-bold mt-3 pl-6">Sign up Bonus</h2>
-        <p className="text-gray-600 text-xl mt-4 pl-6">
-          Fill in the details below and apply the changes to all user types
-        </p>
+      <div className="w-full h-full flex flex-col bg-white p-6">
+        <h2 className="text-5xl font-bold mt-3">Reward Points</h2>
+        <p className="text-gray-600 text-xl mt-4">Assign point values to tasks and apply changes easily</p>
 
         <Popup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} popUpTitle="">
           <AnimatePresence>
-            <motion.div
-              className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl px-5 py-2"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Success Message */}
+            <motion.div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl px-5 py-2" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }}>
               {isSuccess ? (
                 <>
                   <div className="flex size-11 items-center justify-center rounded-full bg-[#4CAF50]">
                     <FaCheck className="text-white" />
                   </div>
-                  <h1 className="text-center font-clashSemiBold text-2xl font-semibold text-primary lg:text-3xl">
-                    Success!
-                  </h1>
-                  <h4 className="text-center font-satoshiMedium text-xl font-medium text-[#140B31]">
-                    {popupMessage}
-                  </h4>
+                  <h1 className="text-center font-clashSemiBold text-2xl font-semibold text-primary lg:text-3xl">Success!</h1>
+                  <h4 className="text-center font-satoshiMedium text-xl font-medium text-[#140B31]">{popupMessage}</h4>
                 </>
               ) : (
-                /* Error Message */
                 <>
                   <div className="flex size-11 items-center justify-center rounded-full bg-[#FF5722]">
                     <FaExclamationTriangle className="text-white" />
                   </div>
-                  <h1 className="text-center font-clashSemiBold text-2xl font-semibold text-red-600 lg:text-3xl">
-                    Error!
-                  </h1>
-                  <h4 className="text-center font-satoshiMedium text-xl font-medium text-[#140B31]">
-                    {popupMessage}
-                  </h4>
+                  <h1 className="text-center font-clashSemiBold text-2xl font-semibold text-red-600 lg:text-3xl">Error!</h1>
+                  <h4 className="text-center font-satoshiMedium text-xl font-medium text-[#140B31]">{popupMessage}</h4>
                 </>
               )}
             </motion.div>
@@ -136,130 +95,57 @@ export default function SignupBonus() {
           </div>
         ) : (
           <div className="flex flex-col space-y-6 p-6 rounded-lg shadow-sm bg-white">
+            <div className="mt-2 flex flex-col">
+            {rewards.map((reward, index) => (
+              <div key={index} className="flex items-center space-x-6 mt-6">
+    {/* Reward Type */}
+          <span className="mt-4 w-40 text-lg font-semibold flex-shrink-0">
+            {reward.type.replace(/_/g, " ")}
+          </span>
 
-
-          {/* Customer Bonus Section */}
-  <div className="flex items-end space-x-8 py-4">
-      <div className="flex flex-col">
-        <label className="text-md text-primary font-bold mb-2">Customer Bonus Price</label>
-        <div className="relative w-65">
-          <span className="absolute inset-y-0 left-3 flex items-center text-gray-500 font-bold">$</span>
-          <input
-            type="number"
-            placeholder="0.00"
-            value={customerBonus}
-            onChange={(e) => {
-              const value = Math.max(0, Number(e.target.value));
-              setCustomerBonus(value.toString());
-            }}
-            min="0"
-            disabled={!customerEnabled} // Disable when not enabled
-            className={`border p-2 pl-8 w-full rounded-xl focus:border-primary focus:outline-none 
-              ${!customerEnabled ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""}`}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col">
-        <label className="text-md text-primary font-bold mb-2">Number of Days</label>
-        <input
-          type="number"
-          placeholder="Valid number of days"
-          value={customerDays}
-          onChange={(e) => {
-            const value = Math.max(0, Number(e.target.value));
-            setCustomerDays(value.toString());
-          }}
-          min="0"
-          disabled={!customerEnabled} // Disable when not enabled
-          className={`border p-2 w-50 rounded-xl focus:border-primary focus:outline-none 
-            ${!customerEnabled ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""}`}
-        />
-      </div>
-
-      <Button
-        onClick={() => handleApplySignupBonus("CUSTOMER", customerBonus, customerDays)}
-        disabled={!customerEnabled} // Disable button
-        className={`py-3 px-6 rounded-full text-lg border-secondary text-white
-          ${customerEnabled ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
-      >
-        Save Changes
-      </Button>
-
-      <Button
-        onClick={() => handleEnableToggle("CUSTOMER", !customerEnabled)}
-        className={`py-3 px-6 rounded-full text-lg 
-          ${customerEnabled ? "bg-red-600 hover:bg-red-700 border-red-600 text-white" : "bg-primary hover:bg-primary-700 text-white"}`}
-      >
-        {customerEnabled ? "Disable" : "Enable"}
-      </Button>
+    {/* Points Value Input */}
+    <div className="flex flex-col w-40">
+      <span className="text-md text-primary font-semibold ml-8">Points value</span>
+      <input 
+        type="number" 
+        placeholder="reward points" 
+        value={reward.fixedAmount} 
+        onChange={(e) => {
+          const value = Math.max(0, Number(e.target.value));
+          setRewards(prevRewards => prevRewards.map((r, i) => i === index ? { ...r, fixedAmount: value } : r));
+        }}
+        min="0"
+        disabled={reward.status !== "ENABLED"}
+        className={`p-3 border border-gray-300 rounded-xl w-full focus:border-primary focus:outline-none 
+          ${reward.status !== "ENABLED" ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""}`}
+      />
     </div>
 
-    
-    {/* Service Provider Bonus Section */}
-    <div className="flex items-end space-x-8 py-4">
-      <div className="flex flex-col">
-        <label className="text-md text-primary font-bold mb-2">Service Provider Bonus Price</label>
-        <div className="relative w-65">
-          <span className="absolute inset-y-0 left-3 flex items-center text-gray-500 font-bold">$</span>
-          <input
-            type="number"
-            placeholder="Service provider bonus"
-            value={serviceProviderBonus}
-            onChange={(e) => {
-              const value = Math.max(0, Number(e.target.value));
-              setServiceProviderBonus(value.toString());
-            }}
-            min="0"
-            disabled={!serviceProviderEnabled} // Disable input when service provider bonus is disabled
-            className={`border p-2 pl-8 w-full rounded-xl focus:outline-none 
-              ${serviceProviderEnabled ? "focus:border-primary" : "bg-gray-200 text-gray-500 cursor-not-allowed"}`}
-          />
-        </div>
-      </div>
+    {/* Save Changes Button */}
+    <Button
+      onClick={() => handleSaveRewardPoints(reward.role, reward.fixedAmount, reward.type, reward.status === "ENABLED")}
+      disabled={reward.status !== "ENABLED"}
+      className={`mt-6 w-60 py-3 rounded-full text-lg border-secondary text-white 
+        ${reward.status === "ENABLED" ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
+    >
+      Save Changes
+    </Button>
 
-      <div className="flex flex-col">
-        <label className="text-md text-primary font-bold mb-2">Number of Days</label>
-        <input
-          type="number"
-          placeholder="Valid number of days"
-          value={serviceProviderDays}
-          onChange={(e) => {
-            const value = Math.max(0, Number(e.target.value));
-            setServiceProviderDays(value.toString());
-          }}
-          min="0"
-          disabled={!serviceProviderEnabled} // Disable input when service provider bonus is disabled
-          className={`border p-2 w-50 rounded-xl focus:outline-none 
-            ${serviceProviderEnabled ? "focus:border-primary" : "bg-gray-200 text-gray-500 cursor-not-allowed"}`}
-        />
-      </div>
+    {/* Enable/Disable Button */}
+    <Button
+      onClick={() => handleEnableToggle(reward.role, reward.status !== "ENABLED")}
+      className={`mt-6 w-40 py-3 rounded-full text-lg text-white 
+        ${reward.status === "ENABLED" ? "bg-red-600 hover:bg-red-700 border-red-600" : "bg-primary hover:bg-primary-700 border-primary-700"}`}
+    >
+      {reward.status === "ENABLED" ? "Disable" : "Enable"}
+    </Button>
+  </div>
+))}
 
-      {/* Save Changes Button */}
-      <Button
-        onClick={() => handleApplySignupBonus("SERVICE_PROVIDER", serviceProviderBonus, serviceProviderDays)}
-        disabled={!serviceProviderEnabled} // Disable button when not enabled
-        className={`py-3 px-6 rounded-full text-lg border-secondary text-white
-          ${serviceProviderEnabled ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
-      >
-        Save Changes
-      </Button>
-
-      {/* Enable/Disable Button */}
-      <Button
-        onClick={() => handleEnableToggle("SERVICE_PROVIDER", !serviceProviderEnabled)}
-        className={`py-3 px-6 rounded-full text-lg 
-          ${serviceProviderEnabled ? "bg-red-600 hover:bg-red-700 border-red-600 text-white" 
-                                  : "bg-primary hover:bg-primary-700 text-white"}`}
-      >
-        {serviceProviderEnabled ? "Disable" : "Enable"}
-      </Button>
-      </div>
-
-        </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
-
 }

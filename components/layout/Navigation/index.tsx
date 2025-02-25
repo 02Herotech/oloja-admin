@@ -22,6 +22,11 @@ const Navigation = () => {
             icon: <Icons.UserIcon className='fill-inherit' />,
         },
         {
+            name: "Bonus Credits",
+            to: "/bonus-credits",
+            icon: <Icons.UserIcon className='fill-inherit' />,
+        },
+        {
             name: "Rewards",
             to: "/rewards",
             icon: <Icons.BonusIcon className='fill-inherit' />,
@@ -66,6 +71,11 @@ const Navigation = () => {
             icon: <Icons.UserIcon className='fill-inherit' />,
         },
         {
+            name: "Bonus Credits",
+            to: "/bonus-credits",
+            icon: <Icons.UserIcon className='fill-inherit' />,
+        },
+        {
             name: "Rewards",
             to: "/rewards",
             icon: <Icons.BonusIcon className='fill-inherit' />,
@@ -75,13 +85,14 @@ const Navigation = () => {
             to: "/bookings",
             icon: <Icons.BookingIcon className='fill-inherit' />,
         },
+
         // {
         //     name: "Rewards",
         //     to: "/rewards",
         //     icon: <Icons.UserIcon className='fill-inherit' />,
         //
         // },
-        
+
         // {
         //     name: "Messages",
         //     to: "/messages",
