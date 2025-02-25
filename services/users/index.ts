@@ -87,6 +87,14 @@ export const users = createApi({
         getSignupBonusDetails: builder.query<{ amount: number; role: string; status: string; validityDays: number }[], void>({
             query: () => getRequest(`/signup-bonus`),
         }),
+        saveRewardPoints: builder.mutation<void, { role: string; fixedAmount: number; type: string; status?: string }>({
+            query: ({ role, fixedAmount, type, status }) => 
+                postRequest(`/point-rewards/create`, { role, fixedAmount, type, ...(status && { status }) }),
+        }),              
+        
+        getRewardPoints: builder.query<{ fixedAmount: number; role: string; status: string; type: string }[], void>({
+            query: () => getRequest(`/point-rewards`),
+        }),
         getAvailablePermissions: builder.query<PermissionResponse, void>({
             query: () => getRequest(`/admin/permissions`),
         }),
@@ -111,6 +119,8 @@ export const {
     useDeactivateUserMutation,
     useApplySignupBonusMutation,
     useGetSignupBonusDetailsQuery,
+    useSaveRewardPointsMutation,
+    useGetRewardPointsQuery,
     useGetAvailablePermissionsQuery,
     useCreateAdminMutation
 } = users;
