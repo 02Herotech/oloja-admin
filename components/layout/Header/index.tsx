@@ -70,7 +70,7 @@ const Header = () => {
                         </FormProvider>
                     </div>
 
-                    <div className='flex items-center justify-end gap-8 lg:gap-12'>
+                    <div className='flex items-center justify-end gap-4 lg:gap-12'>
                         <div className="flex items-center gap-4">
                             <button onClick={()=> router.push("/create-admin")} className='hidden lg:flex justify-center items-center p-2.5 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors'>
                                 <PlusIcon color="#FFFFFF" className="size-6" />
@@ -80,6 +80,9 @@ const Header = () => {
                             </button>
                             <button onClick={() => router.push("/notifications")} className='flex max-lg:!ml-0 justify-center items-center lg:shadow lg:p-2 rounded-full'>
                                 <Icons.NotificationIcon />
+                            </button>
+                            <button onClick={() => router.push("/settings")} className='flex max-lg:!ml-0 justify-center items-center lg:hidden rounded-full'>
+                                <Icons.SettingsIcon />
                             </button>
                         </div>
 

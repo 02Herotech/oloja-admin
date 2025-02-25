@@ -14,6 +14,8 @@ import {
     UpdatePricingFeeRequest
 } from "@/types/services/users/admin";
 import {Loader2} from "lucide-react";
+import Image from "next/image";
+import ModalSuccessImage from "/public/assets/images/modal-success.png";
 
 const SettingsContent = () => {
     const searchParams = useSearchParams()
@@ -38,6 +40,7 @@ const TabButtons = ({onTabChange}: TabButtonsProps) => {
     const activeTab = searchParams.get("tab") || "all";
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updatePricingFee, { isLoading }] = useUpdatePricingFeeMutation();
+    const [showSuccess, setShowSuccess] = useState(false);
 
 
     const methods = useForm({
@@ -56,9 +59,11 @@ const TabButtons = ({onTabChange}: TabButtonsProps) => {
     const onSubmit = async (data: UpdatePricingFeeRequest) => {
         console.log("data sent", JSON.stringify(data, null, 2));
         const response = await updatePricingFee(data).unwrap();
-        console.log("Admin created successfully:", JSON.stringify(response, null, 2));
-        console.log("values", methods.getValues())
+        console.log("Request successful:", JSON.stringify(response, null, 2));
+
+        setShowSuccess(true); // Show success image after successful submission
     };
+
     const tabs = [
         {id: "all", label: "All"},
         {id: "tasks", label: "Tasks"},
@@ -141,36 +146,59 @@ const TabButtons = ({onTabChange}: TabButtonsProps) => {
                     color:"#381F8C",
                 }}
             >
-              < FormProvider {...methods}>
-                <form className="space-y-6 flex flex-col justify-center" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <NumberInputField
-                        id="taskCharge"
-                        label="Task Charge"
-                        placeholder="$10"
-                    />
-                    <NumberInputField
-                        id="serviceCharge"
-                        label="Service Charge"
-                        placeholder="10%"
-                    />
-                    <NumberInputField
-                        id="gstRate"
-                        label="GST"
-                        placeholder="10%"
-                    />
+                {showSuccess ? (
+                    <>
+                        <div className="w-16 h-16 mx-auto bg-green-100 flex items-center justify-center rounded-full">
+                            <Image src={ModalSuccessImage}
+                                   alt={"success"}
+                                   width={50}
+                                   height={50}
+                            />
+                        </div>
+                        <p className={'text-center font-satoshi text-primary mt-5 text-sm'}> You have Successfully updated Pricing & Fees. </p>
+                    </>
 
-                    <div className="flex items-center justify-center">
-                        <Button
-                            className={'w-full max-w-[250px] p-2 rounded-full'} type="submit">
-                            {isLoading ? <Loader2 className="animate-spin size-5" /> : "Save Changes"}
-                        </Button>
-                    </div>
+                ) : (
+                    <FormProvider {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)}
+                              className={'flex flex-col gap-6'}>
 
-                </form>
-            </FormProvider>
+                            <NumberInputField
+                                id="taskCharge"
+                                label={"Task Charge"}
+                                placeholder={"Task Charge"}
+                            />
+                            <NumberInputField
+                                id="serviceCharge"
+                                label={"Service Charge"}
+                                placeholder={"Service Charge"}
+                            />
+                            <NumberInputField
+                                id="gstRate"
+                                label={'GST Rate'}
+                                placeholder={'GST Rate'}
+                            />
 
 
-        </Modal >
+                            <div className={'flex justify-center'}>
+                                <Button
+                                    type="submit"
+                                    className="bg-primary rounded-full"
+                                    disabled={isLoading}
+                                >
+                                    {isLoading && <Loader2 className="animate-spin size-5" />}
+                                    Save Changes
+                                </Button>
+                            </div>
+
+
+                        </form>
+                    </FormProvider>
+                )}
+
+
+
+            </Modal >
         </div >
     );
 };
