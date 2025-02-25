@@ -23,7 +23,7 @@ export default function RewardPoints() {
     }
   }, [data]);
 
-  const handleSaveRewardPoints = async (role, fixedAmount, type, enabled) => {
+  const handleSaveRewardPoints = async (role: string, fixedAmount: number, type: string, enabled: boolean) => {
     try {
       await saveRewardPoints({ role, fixedAmount, type, status: enabled ? "ENABLED" : "DISABLED" }).unwrap();
       refetch();
