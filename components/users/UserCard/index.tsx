@@ -44,7 +44,7 @@ const UserCard = ({ name, role, dateJoined, image, id, showButton = true }: User
                                     className="rounded-full size-12 object-fit"
                                 />
                             ) : (
-                                <div className="size-16 rounded-full bg-gray-100 flex items-center justify-center">
+                                <div className="size-12 rounded-full bg-gray-100 flex items-center justify-center">
                                     <span className="text-gray-600 font-medium capitalize">{name.charAt(0)}</span>
                                 </div>
                             )}
