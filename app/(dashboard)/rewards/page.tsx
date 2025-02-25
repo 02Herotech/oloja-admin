@@ -96,44 +96,52 @@ export default function RewardPoints() {
         ) : (
           <div className="flex flex-col space-y-6 p-6 rounded-lg shadow-sm bg-white">
             <div className="mt-2 flex flex-col">
-              {rewards.map((reward, index) => (
-                <div key={index} className="flex items-center space-x-6 mt-6">
-                  <span className="mt-6 text-lg font-semibold flex-shrink-0">
-                    {reward.type.replace(/_/g, " ")}
-                  </span>
-                  <div className="flex flex-col">
-                    <span className="text-md text-primary font-semibold ml-6">Points value</span>
-                    <input 
-                      type="number" 
-                      placeholder="reward points" 
-                      value={reward.fixedAmount} 
-                      onChange={(e) => {
-                        const value = Math.max(0, Number(e.target.value));
-                        setRewards(prevRewards => prevRewards.map((r, i) => i === index ? { ...r, fixedAmount: value } : r));
-                      }}
-                      min="0"
-                      disabled={reward.status !== "ENABLED"} // Disable when status is DISABLED
-                      className={`p-3 border border-gray-300 rounded-xl w-32 focus:border-primary focus:outline-none 
-                        ${reward.status !== "ENABLED" ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""}`}
-                    />
-                  </div>
-                  <Button
-                    onClick={() => handleSaveRewardPoints(reward.role, reward.fixedAmount, reward.type, reward.status === "ENABLED")}
-                    disabled={reward.status !== "ENABLED"} // Disable button
-                    className={`mt-6 py-5 px-6 rounded-full text-lg border-secondary text-white 
-                      ${reward.status === "ENABLED" ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
-                  >
-                    Save Changes
-                  </Button>
-                  <Button
-                    onClick={() => handleEnableToggle(reward.role, reward.status !== "ENABLED")}
-                    className={`mt-6 py-5 px-8 rounded-full text-lg text-white 
-                      ${reward.status === "ENABLED" ? "bg-red-600 hover:bg-red-700 border-red-600" : "bg-primary hover:bg-primary-700 border-primary-700"}`}
-                  >
-                    {reward.status === "ENABLED" ? "Disable" : "Enable"}
-                  </Button>
-                </div>
-              ))}
+            {rewards.map((reward, index) => (
+              <div key={index} className="flex items-center space-x-6 mt-6">
+    {/* Reward Type */}
+          <span className="mt-4 w-40 text-lg font-semibold flex-shrink-0">
+            {reward.type.replace(/_/g, " ")}
+          </span>
+
+    {/* Points Value Input */}
+    <div className="flex flex-col w-40">
+      <span className="text-md text-primary font-semibold ml-8">Points value</span>
+      <input 
+        type="number" 
+        placeholder="reward points" 
+        value={reward.fixedAmount} 
+        onChange={(e) => {
+          const value = Math.max(0, Number(e.target.value));
+          setRewards(prevRewards => prevRewards.map((r, i) => i === index ? { ...r, fixedAmount: value } : r));
+        }}
+        min="0"
+        disabled={reward.status !== "ENABLED"}
+        className={`p-3 border border-gray-300 rounded-xl w-full focus:border-primary focus:outline-none 
+          ${reward.status !== "ENABLED" ? "bg-gray-200 cursor-not-allowed text-gray-500" : ""}`}
+      />
+    </div>
+
+    {/* Save Changes Button */}
+    <Button
+      onClick={() => handleSaveRewardPoints(reward.role, reward.fixedAmount, reward.type, reward.status === "ENABLED")}
+      disabled={reward.status !== "ENABLED"}
+      className={`mt-6 w-60 py-3 rounded-full text-lg border-secondary text-white 
+        ${reward.status === "ENABLED" ? "bg-secondary hover:bg-secondary-700" : "bg-gray-400 border-gray-400 text-black cursor-not-allowed"}`}
+    >
+      Save Changes
+    </Button>
+
+    {/* Enable/Disable Button */}
+    <Button
+      onClick={() => handleEnableToggle(reward.role, reward.status !== "ENABLED")}
+      className={`mt-6 w-40 py-3 rounded-full text-lg text-white 
+        ${reward.status === "ENABLED" ? "bg-red-600 hover:bg-red-700 border-red-600" : "bg-primary hover:bg-primary-700 border-primary-700"}`}
+    >
+      {reward.status === "ENABLED" ? "Disable" : "Enable"}
+    </Button>
+  </div>
+))}
+
             </div>
           </div>
         )}
