@@ -24,6 +24,7 @@ import PermissionIcon from "/public/assets/icons/permission.svg";
 import NumberPlus from "/public/assets/icons/number-plus.svg";
 import NumberMinus from "/public/assets/icons/number-minus.svg";
 import BonusIcon from "/public/assets/icons/bonus.svg";
+import PointsReward from "/public/assets/icons/points-reward.svg";
 
 
 const Icons = {
@@ -50,7 +51,8 @@ const Icons = {
     PermissionIcon,
     NumberPlus,
     NumberMinus,
-    BonusIcon
+    BonusIcon,
+    PointsReward,
 };
 
 export default Icons;
