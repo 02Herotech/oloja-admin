@@ -20,6 +20,7 @@ type ModalProps = {
     loading?: boolean
     closeButtonStyle?: string
     showHeaderBorder?: boolean
+    style?: object;
 }
 
 export default function Component({
@@ -34,6 +35,7 @@ export default function Component({
     loading = false,
     showHeaderBorder = false,
     description,
+    style
 }: ModalProps) {
 
     useEffect(() => {
@@ -49,7 +51,7 @@ export default function Component({
             isOpen={show}
             shouldCloseOnOverlayClick={allowClose && shouldCloseOnOverlayClick}
             onRequestClose={onRequestClose}
-            className={cn("flex h-fit w-full relative font-sans", `lg:${width}`)}
+            className={cn("flex p-6 h-fit w-full relative font-sans", `lg:${width}`)}
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
             ariaHideApp={false}
             closeTimeoutMS={200}
@@ -75,15 +77,10 @@ export default function Component({
                             "border-b border-gray-200": showHeaderBorder,
                         })}
                     >
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-2">
                             <div className="space-y-1 flex-1">
                                 {title && (
-                                    <h2 className="text-lg font-medium sm:text-2xl font-clashMedium">{title}</h2>
-                                )}
-                                {description && (
-                                    <p className="text-sm text-gray-500 sm:text-base font-satoshiMedium">
-                                        {description}
-                                    </p>
+                                    <h2 style={style} className="text-lg font-medium sm:text-2xl font-clashMedium">{title}</h2>
                                 )}
                             </div>
                             {allowClose && (
@@ -94,6 +91,13 @@ export default function Component({
                                 >
                                     <X className="h-4 w-4 sm:h-5 sm:w-5" />
                                 </button>
+                            )}
+                        </div>
+                        <div>
+                            {description && (
+                                <p style={style} className="text-xs text-gray-500 sm:text-base font-satoshiMedium">
+                                    {description}
+                                </p>
                             )}
                         </div>
                     </div>

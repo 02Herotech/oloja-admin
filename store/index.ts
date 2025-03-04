@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { auth } from "@/services/auth";
 import { rtkQueryErrorLogger } from "./middlewares";
 import {users} from "@/services/users";
+import {admin} from "@/services/users/admin";
 import {analysis} from "@/services/adminAnalysis";
 
 export const store = configureStore({
     reducer: {
         [auth.reducerPath]: auth.reducer,
         [users.reducerPath]: users.reducer,
-        [analysis.reducerPath]: analysis.reducer
+        [analysis.reducerPath]: analysis.reducer,
+        [admin.reducerPath]: admin.reducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(

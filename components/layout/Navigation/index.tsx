@@ -5,8 +5,11 @@ import NavigationLink from "../NavigationLink";
 import Dropdown from "@/components/global/Dropdown";
 import { cn } from "@/lib/utils";
 import { PlusIcon } from "lucide-react";
+import {useRouter} from "next/navigation";
 
 const Navigation = () => {
+    const router = useRouter();
+
     const links = [
         {
             name: "Dashboard",
@@ -19,19 +22,19 @@ const Navigation = () => {
             icon: <Icons.UserIcon className='fill-inherit' />,
         },
         {
+            name: "Bonus Credits",
+            to: "/bonus-credits",
+            icon: <Icons.BonusIcon className='fill-inherit' />,
+        },
+        {
+            name: "Rewards",
+            to: "/rewards",
+            icon: <Icons.PointsReward className='fill-inherit' />,
+        },
+        {
             name: "Bookings",
             to: "/bookings",
             icon: <Icons.BookingIcon className='fill-inherit' />,
-        },
-        {
-            name: "Messages",
-            to: "/messages",
-            icon: <Icons.MessageIcon className='fill-inherit' />,
-        },
-        {
-            name: "Notifications",
-            to: "/notifications",
-            icon: <Icons.NotificationIcon className='fill-inherit' />,
         },
         {
             name: "Payments",
@@ -57,26 +60,29 @@ const Navigation = () => {
             icon: <Icons.UserIcon className='fill-inherit' />,
         },
         {
-            name: "Bookings",
-            to: "/bookings",
-            icon: <Icons.BookingIcon className='fill-inherit' />,
+            name: "Payments",
+            to: "/payments",
+            icon: <Icons.PaymentIcon className='fill-inherit' />,
         },
-        // {
-        //     name: "Messages",
-        //     to: "/messages",
-        //     icon: <Icons.MessageIcon className='fill-inherit' />,
-        // },
         {
-            name: "Settings",
-            to: "/settings",
-            icon: <Icons.SettingsIcon className='fill-inherit' />,
-        },
+            name: "Bonus Credits",
+            to: "/bonus-credits",
+            icon: <Icons.BonusIcon className='fill-inherit' />,
+        }
     ];
 
     const dropdownButtons = [
         {
             label: "Create New User",
-            onClick: () => { },
+            onClick: ()=>router.push("/create-admin"),
+        },
+        {
+            label: "Booking",
+            onClick: ()=>router.push("/bookings"),
+        },
+        {
+            label: "Rewards",
+            onClick: ()=>router.push("/rewards"),
         },
     ];
 

@@ -91,13 +91,17 @@ const Users = () => {
 
   return (
     <div className="relative">
-      <div className="max-lg:flex w-full justify-between">
+      {/* Header Section: User Management + Signup Bonus */}
+      <div className="flex justify-between items-center w-full mb-6">
         <SectionHeader>User Management</SectionHeader>
-        <Suspense>
-          <TabButtons onTabChange={handleTabChange} />
-        </Suspense>
       </div>
 
+      {/* Tabs Below the Header */}
+      <Suspense>
+        <TabButtons onTabChange={handleTabChange} />
+      </Suspense>
+
+      {/* User Content */}
       <Suspense>
         <UserContent />
       </Suspense>

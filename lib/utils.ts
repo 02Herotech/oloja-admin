@@ -104,3 +104,44 @@ export function formatNumber(number: number): string {
 
   return scaled.toFixed() + suffix;
 }
+
+export const formatString = (str: string): string => {
+    if (str.includes('_')) {
+        return str
+            .replace(/_/g, ' ')
+            .replace(/(^|\s)\S/g, (match) => match.toUpperCase());
+    }
+
+    return str
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, (match) => match.toUpperCase())
+        .trim();
+};
+
+export const formatValue = (value: number | string): string => {
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+
+    if (isNaN(numericValue)) {
+        return numericValue as unknown as string;
+    }
+
+    if (numericValue >= 1_000_000) {
+        const millionValue = numericValue / 1_000_000;
+        if (numericValue % 1_000_000 !== 0) {
+            return `${millionValue.toFixed(1)}M`;
+        } else {
+            return `${millionValue.toFixed(0)}M`;
+        }
+    } else if (numericValue >= 1_000) {
+        const thousandValue = numericValue / 1_000;
+        if (numericValue % 1_000 === 0) {
+            return `${thousandValue.toFixed(0)}K`;
+        } else {
+            return `${thousandValue.toFixed(1)}K`;
+        }
+    } else if (numericValue >= 100) {
+        return `${numericValue}K`;
+    } else {
+        return numericValue.toString();
+    }
+};

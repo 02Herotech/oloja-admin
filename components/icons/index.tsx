@@ -19,6 +19,12 @@ import CompletedTaskIcon from "/public/assets/icons/completed-task.svg";
 import OngoingTask from "/public/assets/icons/ongoing-task.svg";
 import TotalIncome from "/public/assets/icons/total-income.svg";
 import ActivityIcon from "/public/assets/icons/activity-icon.svg";
+import AccountDetailsIcon from "/public/assets/icons/admin-permission.svg";
+import PermissionIcon from "/public/assets/icons/permission.svg";
+import NumberPlus from "/public/assets/icons/number-plus.svg";
+import NumberMinus from "/public/assets/icons/number-minus.svg";
+import BonusIcon from "/public/assets/icons/bonus.svg";
+import PointsReward from "/public/assets/icons/points-reward.svg";
 
 
 const Icons = {
@@ -41,6 +47,12 @@ const Icons = {
     OngoingTask,
     TotalIncome,
     ActivityIcon,
+    AccountDetailsIcon,
+    PermissionIcon,
+    NumberPlus,
+    NumberMinus,
+    BonusIcon,
+    PointsReward,
 };
 
 export default Icons;

@@ -6,7 +6,11 @@ import { getSession } from "next-auth/react";
 import {
     GetServiceProviderByIdResponse
 } from "@/types/services/users/service-providers";
-import {AdminResponse} from "@/types/services/users/admin";
+import {
+    AdminResponse,
+    CreateAdminRequest, CreateAdminResponse,
+    PermissionResponse
+} from "@/types/services/users/admin";
 
 const postRequest = (url: string, details: unknown) => ({
     url,
@@ -71,6 +75,35 @@ export const users = createApi({
             query: ({ name, page = 0 }) =>
                 getRequest(`/users/search/${page}?name=${name}`),
         }),
+        deactivateUser: builder.mutation<void, number>({
+            query: (id) => postRequest(`/deactivate-user/${id}`, {}),
+        }),
+
+        applySignupBonus: builder.mutation<void, { role: string; amount: string; validityDays: string; status?: string }>({
+            query: ({ role, amount, validityDays, status }) => 
+                postRequest(`/signup-bonus/add`, { role, amount, validityDays, ...(status && { status }) }),
+        }),              
+        
+        getSignupBonusDetails: builder.query<{ amount: number; role: string; status: string; validityDays: number }[], void>({
+            query: () => getRequest(`/signup-bonus`),
+        }),
+        saveRewardPoints: builder.mutation<void, { role: string; fixedAmount: number; type: string; status?: string }>({
+            query: ({ role, fixedAmount, type, status }) => 
+                postRequest(`/point-rewards/create`, { role, fixedAmount, type, ...(status && { status }) }),
+        }),              
+        
+        getRewardPoints: builder.query<{ fixedAmount: number; role: string; status: string; type: string }[], void>({
+            query: () => getRequest(`/point-rewards`),
+        }),
+        getAvailablePermissions: builder.query<PermissionResponse, void>({
+            query: () => getRequest(`/admin/permissions`),
+        }),
+        createAdmin: builder.mutation<CreateAdminResponse, CreateAdminRequest>({
+            query: (data: CreateAdminRequest) => postRequest(``, data),
+        }),
+        updatePricingFee: builder.mutation<CreateAdminResponse, CreateAdminRequest>({
+            query: (data: CreateAdminRequest) => postRequest(``, data),
+        }),
     }),
 });
 
@@ -83,4 +116,11 @@ export const {
     useGetCustomerByIdQuery,
     useGetServiceProviderByIdQuery,
     useGetUsersByNameQuery,
+    useDeactivateUserMutation,
+    useApplySignupBonusMutation,
+    useGetSignupBonusDetailsQuery,
+    useSaveRewardPointsMutation,
+    useGetRewardPointsQuery,
+    useGetAvailablePermissionsQuery,
+    useCreateAdminMutation
 } = users;

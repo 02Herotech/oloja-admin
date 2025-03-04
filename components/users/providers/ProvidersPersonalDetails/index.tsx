@@ -93,8 +93,10 @@ export const ProvidersPersonalDetails = ({
                             <span
                                 className={`px-2 py-1 rounded-full text-sm ${
                                     userData.user.accountState === "NOT_VERIFIED"
-                                        ? "bg-yellow-100 text-yellow-800"
-                                        : "bg-green-100 text-green-800"
+                                        ? ("bg-yellow-100 text-yellow-800")
+                                        : userData.user.accountState === "DEACTIVATED" ?
+                                            ("bg-red-100 text-yellow-800")
+                                              : ("bg-green-100 text-green-800")
                                 }`}
                             >
                 {userData.user.accountState.replace("_", " ")}

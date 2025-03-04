@@ -10,9 +10,10 @@ interface UserCardProps {
     dateJoined: string;
     image?: string;
     id: number;
+    showButton?: boolean;
 }
 
-const UserCard = ({ name, role, dateJoined, image, id }: UserCardProps) => {
+const UserCard = ({ name, role, dateJoined, image, id, showButton = true }: UserCardProps) => {
     const router = useRouter();
     const getRoleColor = (role: string) => {
         switch (role) {
@@ -43,7 +44,7 @@ const UserCard = ({ name, role, dateJoined, image, id }: UserCardProps) => {
                                     className="rounded-full size-12 object-fit"
                                 />
                             ) : (
-                                <div className="size-16 rounded-full bg-gray-100 flex items-center justify-center">
+                                <div className="size-12 rounded-full bg-gray-100 flex items-center justify-center">
                                     <span className="text-gray-600 font-medium capitalize">{name.charAt(0)}</span>
                                 </div>
                             )}
@@ -52,16 +53,19 @@ const UserCard = ({ name, role, dateJoined, image, id }: UserCardProps) => {
                                 <p className="text-sm lg:text-base">{role}</p>
                             </div>
                         </div>
-                        <div className="flex flex-col items-center">
-                            <p className="text-sm text-gray-500">Joined {dateJoined}</p>
+                        {
+                            showButton &&
+                           ( <div className="flex flex-col items-center">
+                            <p className="text-sm text-gray-500">Joined {dateJoined}</p >
                             <Button
                                 onClick={() => router.push(`/users/${role}s/${id}`)}
                                 className="text-sm font-satoshiMedium rounded-full mt-2"
                                 size="sm"
                             >
-                                View 
-                            </Button>
-                        </div>
+                                View
+                            </Button >
+                        </div >
+                           )}
                     </div>
                 </div>
             </div>
